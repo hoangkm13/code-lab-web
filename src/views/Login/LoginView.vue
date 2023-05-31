@@ -36,6 +36,7 @@ const loginForm = ref({
             <el-form :model="signUpForm">
               <el-form-item>
                 <el-input
+                autocomplete="on"
                     v-model="signUpForm.name"
                   class="input-super-large"
                   :prefix-icon="User"
@@ -76,7 +77,7 @@ const loginForm = ref({
               <el-form-item>
                 <el-input
                 v-model="loginForm.name"
-                  autocomplete
+                  autocomplete="on"
                   class="input-super-large"
                   :prefix-icon="User"
                   placeholder="Your username or email"
@@ -85,7 +86,6 @@ const loginForm = ref({
               <el-form-item>
                 <el-input
                 v-model="loginForm.password"
-                  autocomplete
                   class="input-super-large"
                   :prefix-icon="Lock"
                   placeholder="Your password"
@@ -233,7 +233,7 @@ const loginForm = ref({
   display: flex;
   justify-content: flex-end;
 }
-:deep(.el-button>span){
+:deep(.login-button > button > span){
     font-size: 18px;
 }
 .login-tab {
