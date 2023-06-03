@@ -1,3 +1,4 @@
+<!--suppress TypeScriptValidateTypes -->
 <template>
   <el-menu
       :default-active="activeIndex2"
@@ -27,18 +28,33 @@
           :suffix-icon="Search"
       />
     </div>
-    <el-icon class=" user-action icon">
-      <Message/>
-    </el-icon>
+    <el-dropdown trigger="click">
+      <el-icon class=" user-action icon">
+        <Message/>
+      </el-icon>
+      <template #dropdown>
+        <div class="common-layout">
+          <el-container class="message-container">
+            <el-header class="message-container-header">Header</el-header>
+            <el-main>Main</el-main>
+            <el-footer>Footer</el-footer>
+          </el-container>
+        </div>
+      </template>
+    </el-dropdown>
     <el-icon class="user-action icon">
       <Bell/>
     </el-icon>
     <div class="user-action icon-divine">|</div>
     <div class="user-action icon">
-      <el-icon><Grid /></el-icon>
+      <el-icon>
+        <Grid/>
+      </el-icon>
     </div>
     <div class="user-action icon">
-      <el-icon><UserFilled /></el-icon>
+      <el-icon>
+        <UserFilled/>
+      </el-icon>
     </div>
   </el-menu>
 
@@ -46,7 +62,13 @@
 
 <script lang="ts" setup>
 import {ref} from 'vue'
-import {Bell, Grid, Message, Search, UserFilled} from "@element-plus/icons-vue";
+import {
+  Bell,
+  Grid,
+  Message,
+  Search,
+  UserFilled
+} from "@element-plus/icons-vue";
 
 let input = ref()
 const activeIndex2 = ref('1')
@@ -79,20 +101,28 @@ li {
   align-self: center;
   padding: 0 20px;
 }
+
 .icon-divine {
   color: #ffffff;
   font-size: 1rem;
   align-self: center;
 }
+
 .flex-grow {
   flex-grow: 1;
 }
+
 .logo {
   padding: 0 20px;
-  cursor:pointer;
+  cursor: pointer;
 }
+
 .logo-images {
   width: 50px;
   height: 50px;
+}
+
+.message-container {
+  width: 450px;
 }
 </style>
