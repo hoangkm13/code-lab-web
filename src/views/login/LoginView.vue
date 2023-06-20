@@ -1,19 +1,4 @@
-<script lang="ts" setup>
-import { User, Message, Lock } from "@element-plus/icons-vue";
-import { ref } from "vue";
 
-const signUpForm = ref({
-    name: '',
-    email:'',
-    password: '',
-    checkbox: false
-})
-const loginForm = ref({
-    name: '',
-    password: '',
-    checkbox: false
-})
-</script>
 <template>
   <div class="login-container">
     <div class="login-mid">
@@ -76,7 +61,7 @@ const loginForm = ref({
             <el-form :model="loginForm">
               <el-form-item>
                 <el-input
-                v-model="loginForm.name"
+                v-model="loginForm.username"
                   autocomplete="on"
                   class="input-super-large"
                   :prefix-icon="User"
@@ -95,14 +80,14 @@ const loginForm = ref({
 
             <div class="login-box-checkbox">
               <el-checkbox
-                v-model="loginForm.checkbox"
+                v-model="checkBox"
                 label="Renember me"
                 size="large"
               />
               <el-button link type="primary">Forgot your password?</el-button>
             </div>
             <div class="login-button">
-              <el-button size="large" color="#00751f">Login</el-button>
+              <el-button size="large"  color="#00751f" @click="login">Login</el-button>
             </div>
           </el-tab-pane>
           <div class="social-login">
@@ -144,6 +129,28 @@ const loginForm = ref({
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+import LoginApi from "@/api/login-api";
+import { User, Message, Lock } from "@element-plus/icons-vue";
+import { ref } from "vue";
+import { useUserStore } from "@/store/user";
+const userStore = useUserStore()
+const signUpForm = ref({
+  name: '',
+  email:'',
+  password: '',
+  checkbox: false
+})
+const loginForm = ref({
+  username: '',
+  password: '',
+
+})
+let checkBox = ref(false)
+async function login() {
+  await userStore.signIn(loginForm.value)
+}
+</script>
 <style scoped>
 :deep(.el-tabs__content){
     padding: 30px;

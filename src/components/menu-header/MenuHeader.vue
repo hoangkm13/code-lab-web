@@ -13,12 +13,10 @@
     <div class="logo">
       <img class="logo-images" :src="imageSrc" alt="Logo">
     </div>
-    <el-menu-item index="1">
-      <h3 class="dashboard-page">CodeLab</h3>
-    </el-menu-item>
-    <el-menu-item index="2">Prepare</el-menu-item>
-    <el-menu-item index="3">Certify</el-menu-item>
-    <el-menu-item index="4">Compete</el-menu-item>
+    <h3 class="dashboard-page">CodeLab</h3>
+    <el-menu-item index="1">Prepare</el-menu-item>
+    <el-menu-item index="2">Certify</el-menu-item>
+    <el-menu-item index="3">Compete</el-menu-item>
     <div class="flex-grow"/>
     <div class="user-action">
       <el-input
@@ -153,9 +151,12 @@ const handleSelect = (key: string, keyPath: string[]) => {
  font-size: 13px !important;
 }
 .dashboard-page {
+  background: #000000;
   font-weight: bold;
   font-size: 18px;
   margin-right: 5px;
+  color: white;
+  align-self: center;
 }
 
 .icon {
