@@ -30,7 +30,7 @@
             <el-image :src="defaultAvatar"></el-image>
           </div>
           <div class="comment-texteditor">
-            <textarea></textarea>
+            <textarea style="width: 70%;"></textarea>
           </div>
         </div>
         <div>
@@ -88,7 +88,7 @@ import DiscussionComment from "./DiscussionComment.vue";
 
 const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
 
-const isLogin = ref(false);
+const isLogin = ref(true);
 const comments = ref([
   {
     name: "A",
@@ -169,6 +169,9 @@ const sortOptions = ref([
 .comment-header {
   display: flex;
   gap: 12px;
+  margin-bottom: 36px;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
 }
 .input-sort {
   width: 300px;
@@ -180,7 +183,8 @@ const sortOptions = ref([
 }
 .comment-post {
   display: flex;
-  gap: 4px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 .request-login-container {
   margin-top: 10px;
@@ -229,5 +233,8 @@ const sortOptions = ref([
 }
 .link-wrapper:hover > a > .help-icon {
   color: #738f93;
+}
+.comment-texteditor{
+  width: 100%;
 }
 </style>
