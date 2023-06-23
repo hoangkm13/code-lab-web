@@ -31,8 +31,23 @@
             <div class="comment-info-button">
               <el-icon><ArrowDown /></el-icon>
             </div>
-            <el-button link type="primary">Add Comment</el-button>
+            <el-button
+              link
+              type="primary"
+              v-if="isLogin"
+              @click="addCommentContainer(true)"
+              >Add Comment</el-button
+            >
             <el-button link type="primary">Permalink</el-button>
+          </div>
+          <div v-if="openAddComment" class="text-editor">
+            <textarea style="width: 100%"></textarea>
+            <div>
+              <el-button @click="addCommentContainer(false)"
+                >Add Comment</el-button
+              >
+              <el-button @click="addCommentContainer(false)">Close</el-button>
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +64,7 @@
 import { defineProps, ref } from "vue";
 
 const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
-
+const isLogin = ref(false);
 const props = defineProps({
   comment: {
     type: Object,
@@ -59,7 +74,10 @@ const props = defineProps({
 const closeComment = ref(false);
 const closeContainer = () => {
   closeComment.value = !closeComment.value;
-  console.log("closeComment", closeComment.value);
+};
+const openAddComment = ref(false);
+const addCommentContainer = (value) => {
+  openAddComment.value = value;
 };
 </script>
 
@@ -111,11 +129,17 @@ const closeContainer = () => {
   display: flex;
   gap: 12px;
   flex-direction: column;
+  width: 100%;
 }
 .user-comment {
   position: relative;
   margin: 16px 0 0 40px;
   padding: 0 16px 16px 16px;
   border-left: 1px solid #979faf;
+}
+.text-editor {
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fb;
 }
 </style>
