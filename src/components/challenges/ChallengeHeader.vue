@@ -3,27 +3,13 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center content-header-wrapper">
         <div class="community-header-breadcrumb-items">
-          <ol itemtype="http://schema.org/BreadcrumbList" class="community-breadcrumb text-content ellipsis">
-            <li itemprop="itemListElement" itemtype="http://schema.org/ListItem" class="breadcrumb-item">
-              <a itemprop="item" class="breadcrumb-link" data-analytics="Breadcrumb" data-attr1="Prepare" data-attr2="global" data-attr7="1" href="/dashboard">
-              <span itemprop="name" class="breadcrumb-item-text">
-                Prepare
-              </span>
-              </a>
-              <meta itemprop="position" content="1">
-            </li>
-            <li itemprop="itemListElement" itemtype="http://schema.org/ListItem" class="breadcrumb-item">
-            <span class="ui-icon-chevron-right mmL mmR chevron-icon">
-            </span>
-              <span itemprop="name" class="breadcrumb-item-text">
-              Java
-            </span>
-              <meta itemprop="position" content="1">
-            </li>
-          </ol>
-          <div class="page-label-wrapper text-headline">
+          <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item to="/prepare">Prepare</el-breadcrumb-item>
+            <el-breadcrumb-item>{{route.params.topicName}}</el-breadcrumb-item>
+          </el-breadcrumb>
+          <div class="page-label-wrapper text-headline" style="margin-top: 10px">
             <h1 class="page-label">
-              Java
+              {{route.params.topicName}}
             </h1>
           </div>
         </div>
@@ -37,11 +23,8 @@
                 </span>
                   to get your next star!
                 </div>
-                <div class="track-progress-bar">
-                  <div class="ui-progress-bar progress-bar theme-default">
-                    <div class="progress-filler style-MmmbE" id="style-MmmbE">
-                    </div>
-                  </div>
+                <div>
+                  <el-progress :percentage="50"/>
                 </div>
                 <div class="score-info">
                 <span class="current-rank">
@@ -56,7 +39,7 @@
                   <span class="current-points">
                   Points:
                   <span class="value">
-                    128/150
+                    /
                   </span>
                 </span>
                   <a class="scoring-link" data-analytics="BadgeLearnMoreLink" data-attr1="java" target="_blank" href="/scoring">
@@ -80,7 +63,7 @@
                       <path fill="url(#badge-silver-gradient)" d="M98.28277,47.36h0c-.18459-9.382-.87983-17.797-2.0917-19.8595-1.02214-1.742-6.1721-5.43476-12.6195-9.45853L66.3804,8.23311C59.94162,4.89541,54.4699,2.5,52.49778,2.5c-2.42987,0-10.17687,3.63131-18.49789,8.18049-6.30411,3.44623-12.9328,7.41557-17.83631,10.74623-3.85037,2.61278-6.63864,4.828-7.35893,6.07393-.73574,1.27216-1.28014,4.91124-1.63613,9.67794l-.00014-.00008c-.45195,6.03951-.599,13.88935-.43933,21.10033.20233,9.11082.89243,17.18541,2.07561,19.22049C11.66541,82.42328,46.78277,102.5,52.49778,102.5c2.374,0,9.82245-3.47115,17.92388-7.87722,6.4-3.48081,13.19866-7.5418,18.23618-10.9459l-.00046-.00026c3.93694-2.6605,6.80064-4.91944,7.53385-6.17728.72907-1.2482,1.27024-4.80557,1.62881-9.48065l-.00014-.00008C98.269,62.13222,98.42408,54.47227,98.28277,47.36Z" transform="translate(-6.66667 -2.5)">
                       </path>
                     </g>
-                    <image class="badge-icon" xlink:href="https://hrcdn.net/fcore/assets/badges/java-9d05b1f559.svg" x="50%" y="22" height="27" width="27" transform="translate(-13.5, 0)">
+                    <image class="badge-icon" :xlink:href="'https://hrcdn.net/s3_pub/hr-assets/dashboard/' + route.params.link" x="50%" y="22" height="27" width="27" transform="translate(-13.5, 0)">
                     </image>
                     <text class="badge-title" x="50%" y="65.5" font-size="10">
                       Java
@@ -112,6 +95,11 @@
   </header>
 </template>
 <script setup lang="ts">
+import {defineProps} from 'vue'
+import {ArrowRight} from "@element-plus/icons-vue";
+import {useRoute} from "vue-router";
+let route = useRoute()
+
 
 </script>
 <style scoped>

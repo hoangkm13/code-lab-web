@@ -50,25 +50,7 @@
         </div>
         <img src="https://hrcdn.net/s3_pub/hr-assets/dashboard/Python.svg" alt="" role="presentation" class="verifiable-skill-card-logo">
       </a>
-      <a data-event-category="HRC Skills" data-event-label="SkillsTestCardViewAll" data-analytics="SkillsTestCardViewAll" href="/skills-verification">
-        <div class="verifiable-skill-promo-card ui-card ui-layer-2 active-card">
-          <div class="card-content">
-            <h2 class="verifiable-skill-promo-card-title">
-              Stand out from the crowd
-            </h2>
-            <p class="verifiable-skill-promo-card-description">
-              Take the HackerRank Skills Certification Test and make your profile stand out
-            </p>
-            <button class="ui-btn ui-btn-normal ui-btn-secondary verifiable-skill-promo-card-cta ui-btn-styled">
-              <div class="ui-content align-icon-right">
-                  <span class="ui-text" aria-hidden="false">
-                    View all skills
-                  </span>
-              </div>
-            </button>
-          </div>
-        </div>
-      </a>
+
     </div>
   </section>
 </template>

@@ -8,7 +8,7 @@ import '@/assets/index.css'
 import '@/assets/css/dashboard.css'
 import '@/assets/css/challenge.css'
 import '@/assets/css/challenge-solve.css'
-import hljs from 'highlight.js';
+
 import router from './router'
 import store from './store'
 const pinia = createPinia()

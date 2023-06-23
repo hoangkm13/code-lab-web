@@ -29,7 +29,7 @@ export default {
     },
     CHALLENGE_DETAIL: {
         title: "Challenge-detail",
-        routerPath: ":topicId",
+        routerPath: "topicName=:topicName&topicId=:topicId&img=:link",
         get path() {
             return process.env.VUE_APP_BASE_URL + this.routerPath
         }

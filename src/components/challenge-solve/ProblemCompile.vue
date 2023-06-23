@@ -1,12 +1,12 @@
 <template>
 <div class="challenge-compile">
-<code-editor v-model="code"
+[<code-editor v-model="code"
              :language_selector="true"
              :languages="[['Java', 'jv']]"
              :wrap_code="true"
-             height="80vh"
-             width="100%">
-</code-editor>
+
+             >
+</code-editor>]
 </div>
 </template>
 <script setup lang="ts">

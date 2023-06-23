@@ -1,19 +1,17 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import LoginApi from "@/api/login-api";
-
 export const useUserStore = defineStore("user", {
     state: () => ({
-        user: null , // Define the type of 'user' property
+        user: null as null | any,
+
     }),
-
     actions: {
-        async signIn(requestDto: any) {
-            return await LoginApi.login(requestDto).then((response:any) => {
-                this.user = response;
+        async signIn(request: any): Promise<void> {
+            this.user = await LoginApi.login(request);
+            const token:string = this.user.result.token
+            localStorage.setItem("user",JSON.stringify(this.user.result))
+            localStorage.setItem("token", token);
 
-            });
         },
     },
 });
-
-

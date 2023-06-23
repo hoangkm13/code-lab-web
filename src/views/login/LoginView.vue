@@ -134,6 +134,8 @@ import LoginApi from "@/api/login-api";
 import { User, Message, Lock } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/user";
+
+import {useRouter} from "vue-router";
 const userStore = useUserStore()
 const signUpForm = ref({
   name: '',
@@ -147,8 +149,10 @@ const loginForm = ref({
 
 })
 let checkBox = ref(false)
+let router = useRouter()
 async function login() {
   await userStore.signIn(loginForm.value)
+  await router.push("/")
 }
 </script>
 <style scoped>
