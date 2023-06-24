@@ -1,4 +1,3 @@
-
 <template>
   <div class="login-container">
     <div class="login-mid">
@@ -21,8 +20,8 @@
             <el-form :model="signUpForm">
               <el-form-item>
                 <el-input
-                autocomplete="on"
-                    v-model="signUpForm.name"
+                  autocomplete="on"
+                  v-model="signUpForm.name"
                   class="input-super-large"
                   :prefix-icon="User"
                   placeholder="First & Last name"
@@ -30,7 +29,7 @@
               </el-form-item>
               <el-form-item>
                 <el-input
-                v-model="signUpForm.email"
+                  v-model="signUpForm.email"
                   class="input-super-large"
                   :prefix-icon="Message"
                   placeholder="Email"
@@ -38,14 +37,18 @@
               </el-form-item>
               <el-form-item>
                 <el-input
-                v-model="signUpForm.password"
+                  v-model="signUpForm.password"
                   class="input-super-large"
                   :prefix-icon="Lock"
                   placeholder="Your password"
                 ></el-input>
               </el-form-item>
               <el-form-item>
-                <el-checkbox v-model="signUpForm.checkbox" :label="true" size="large">
+                <el-checkbox
+                  v-model="signUpForm.checkbox"
+                  :label="true"
+                  size="large"
+                >
                   I agree to HackerRank's Terms of Service and Privacy Policy.
                 </el-checkbox>
               </el-form-item>
@@ -61,7 +64,7 @@
             <el-form :model="loginForm">
               <el-form-item>
                 <el-input
-                v-model="loginForm.username"
+                  v-model="loginForm.username"
                   autocomplete="on"
                   class="input-super-large"
                   :prefix-icon="User"
@@ -70,7 +73,7 @@
               </el-form-item>
               <el-form-item>
                 <el-input
-                v-model="loginForm.password"
+                  v-model="loginForm.password"
                   class="input-super-large"
                   :prefix-icon="Lock"
                   placeholder="Your password"
@@ -87,7 +90,9 @@
               <el-button link type="primary">Forgot your password?</el-button>
             </div>
             <div class="login-button">
-              <el-button size="large"  color="#00751f" @click="login">Login</el-button>
+              <el-button size="large" color="#00751f" @click="login"
+                >Login</el-button
+              >
             </div>
           </el-tab-pane>
           <div class="social-login">
@@ -130,37 +135,35 @@
   </div>
 </template>
 <script lang="ts" setup>
-import LoginApi from "@/api/login-api";
 import { User, Message, Lock } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/user";
 
-import {useRouter} from "vue-router";
-const userStore = useUserStore()
+import { useRouter } from "vue-router";
+const userStore = useUserStore();
 const signUpForm = ref({
-  name: '',
-  email:'',
-  password: '',
-  checkbox: false
-})
+  name: "",
+  email: "",
+  password: "",
+  checkbox: false,
+});
 const loginForm = ref({
-  username: '',
-  password: '',
-
-})
-let checkBox = ref(false)
-let router = useRouter()
+  username: "",
+  password: "",
+});
+let checkBox = ref(false);
+let router = useRouter();
 async function login() {
-  await userStore.signIn(loginForm.value)
-  await router.push("/")
+  await userStore.signIn(loginForm.value);
+  await router.push("/");
 }
 </script>
 <style scoped>
-:deep(.el-tabs__content){
-    padding: 30px;
+:deep(.el-tabs__content) {
+  padding: 30px;
 }
-:deep(.el-form-item){
-    margin-bottom: 8px
+:deep(.el-form-item) {
+  margin-bottom: 8px;
 }
 :deep(.el-icon) {
   width: 2em;
@@ -244,8 +247,8 @@ async function login() {
   display: flex;
   justify-content: flex-end;
 }
-:deep(.login-button > button > span){
-    font-size: 18px;
+:deep(.login-button > button > span) {
+  font-size: 18px;
 }
 .login-tab {
   display: flex;
