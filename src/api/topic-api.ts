@@ -9,5 +9,8 @@ export default {
     },
     async getUserRanking(topicId:any) {
        return await request.get("/topic/ranking/"+topicId)
-    }
+    },
+    async getAllTopicsWithPoint(){
+        return await request.get("/topic/point");
+   }
 }

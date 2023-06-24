@@ -171,8 +171,7 @@ li {
 
 .user-action {
   align-self: center;
-  padding: 0 20px;
-
+  margin: 0 15px;
 }
 
 .user-action:hover {
@@ -220,10 +219,10 @@ li {
   background-color: #e7eeef;
   text-align: center;
   display: flex;
-  width: 20px;
+  width: 35px;
   justify-content: center;
   padding: 7px;
-  height: 17px;
+  height: 32px;
   align-items: center;
   color: #000000;
   margin-right: 30px;

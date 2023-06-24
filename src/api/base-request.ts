@@ -9,7 +9,6 @@ const Request = (baseURL: any): AxiosInstance => {
         baseURL: baseURL,
         timeout: timeout,
         withCredentials: true,
-
     });
     request.interceptors.request.use((config) => {
         config.headers['Access-Control-Allow-Origin'] = "http://localhost:8080/"; // Set the 'Access-Control-Allow-Origin' header

@@ -13,6 +13,13 @@ export default {
             return process.env.VUE_APP_BASE_URL + this.routerPath
         }
     },
+    PROFILE : {
+        title: "Your profile",
+        routerPath: "/profile",
+        get path() {
+            return process.env.VUE_APP_BASE_URL + this.routerPath
+        }
+    },
     PREPARE : {
         title: "Prepare",
         routerPath: "/prepare",
