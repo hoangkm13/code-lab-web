@@ -1,5 +1,6 @@
 
 <template>
+  <button @click="test">click</button>
   <div class="login-container">
     <div class="login-mid">
       <div class="login-logo">
@@ -151,8 +152,12 @@ const loginForm = ref({
 let checkBox = ref(false)
 let router = useRouter()
 async function login() {
+  await localStorage.removeItem("token")
   await userStore.signIn(loginForm.value)
   await router.push("/")
+}
+async function test() {
+  localStorage.removeItem("token")
 }
 </script>
 <style scoped>

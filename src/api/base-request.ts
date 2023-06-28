@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AxiosInstance} from "axios";
 export const API_URL = "http://localhost:8004/v1";
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
 
 const Request = (baseURL: any): AxiosInstance => {
     const timeout = 1000 * 60 * 5;
@@ -29,7 +29,7 @@ const Request = (baseURL: any): AxiosInstance => {
     }, async error => {
         return Promise.reject(error.response);
     });
-    request.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8080';
+
 
     return request;
 }

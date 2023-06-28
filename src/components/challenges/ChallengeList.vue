@@ -74,18 +74,38 @@
 
 </template>
 <script setup lang="ts">
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, defineExpose} from 'vue'
 import {useRoute} from 'vue-router'
 import challengeApi from "@/api/challenge-api";
 
 let challengeList = ref()
+let request = ref({
+  page: 1,
+  size: 4,
+  challenges: [] as any,
+  fieldValues: null
+})
 
 let route = useRoute();
 
 async function getChallengeList() {
   try {
-    const response = await challengeApi.getChallengeByTopicId(route.params.topicId);
+    const response = await challengeApi.getChallengeByTopicId(route.params.topicId) as any;
     challengeList.value = await response.result.content
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function filter(fieldValue: any) {
+  try {
+    for (let item of challengeList.value) {
+      request.value.challenges.push(item.challenge)
+    }
+    request.value.fieldValues = await fieldValue
+    console.log(await challengeApi.filter(request.value))
+    return await challengeApi.filter(request.value);
 
   } catch (error) {
     console.error(error);
@@ -94,6 +114,9 @@ async function getChallengeList() {
 
 onMounted(async () => {
   await getChallengeList()
+})
+defineExpose({
+  filter
 })
 </script>
 <style scoped>

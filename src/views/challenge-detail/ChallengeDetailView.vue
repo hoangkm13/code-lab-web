@@ -7,8 +7,8 @@
         <header class="challenge-list-header clearfix snipcss0-3-3-4">
         </header>
         <div class="content-container panes-container snipcss0-3-3-5">
-          <challenge-list ></challenge-list>
-          <challenge-filter></challenge-filter>
+          <challenge-list ref="challengeList"></challenge-list>
+          <challenge-filter @filter="filter"></challenge-filter>
         </div>
       </div>
     </div>
@@ -21,8 +21,11 @@ import ChallengeHeader from "@/components/challenges/ChallengeHeader.vue";
 import ChallengeList from "@/components/challenges/ChallengeList.vue";
 import ChallengeFilter from "@/components/challenges/ChallengeFilter.vue";
 
+let challengeList = ref(ChallengeList)
+function filter(filedValue:any) {
+  challengeList.value.filter(filedValue)
 
-
+}
 
 </script>
 <style scoped>

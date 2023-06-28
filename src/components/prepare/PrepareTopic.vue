@@ -1,5 +1,4 @@
 <template>
-
   <section class="dashboard-section dashboard-topics" id="topics">
     <div class="dashboard-section-header">
       <h2 class="text-para-headline bold dashboard-section-title">
@@ -43,9 +42,14 @@ async function getAllTopics() {
   }
 }
  function extractImageName(imageUrl:any) {
-  const urlParts =  imageUrl.split("/");
-  const fileName =  urlParts[urlParts.length - 1];
-  return fileName
+  if(imageUrl != null) {
+    const urlParts =  imageUrl.split("/");
+    const fileName =  urlParts[urlParts.length - 1];
+    return fileName
+  }
+  else {
+    return " "
+  }
 }
 
 onMounted(async () => await getAllTopics())
