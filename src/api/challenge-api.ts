@@ -4,9 +4,7 @@ export default {
     async getChallengeByTopicId(topicId:any) {
         return await request.get("/challenge/topic/" + topicId)
     },
-    async filter(requestDto:any) {
-        await request.post("/challenge/filter",requestDto).then((response:any) => {
-           return response.result.content
-        })
+    async filter(requestDto:any,list:any) {
+        await request.post("/challenge/filter",requestDto).then((response) => list.value = response)
     }
 }

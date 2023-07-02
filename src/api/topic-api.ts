@@ -6,5 +6,8 @@ export default {
     },
     async getUserTopic(topicId:any) {
        return await  request.get("/topic/"+topicId)
+    },
+    async getUserRanking(topicId:any) {
+       return await request.get("/topic/ranking/"+topicId)
     }
 }

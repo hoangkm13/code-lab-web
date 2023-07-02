@@ -1,17 +1,19 @@
 <template>
 <div class="challenge-compile">
-[<code-editor v-model="code"
+<code-editor v-model="code"
              :language_selector="true"
-             :languages="[['Java', 'jv']]"
-             :wrap_code="true"
+             :languages="[['cpp', 'C++'],['python', 'Python'],['php', 'PHP']]"
+             width="100%"
+             height="100%"
+             :line-nums="true">
+</code-editor>
 
-             >
-</code-editor>]
 </div>
+
 </template>
 <script setup lang="ts">
 import {ref} from 'vue'
-import CodeEditor from 'simple-code-editor';
+import CodeEditor from "simple-code-editor";
 let code = ref('')
 </script>
 

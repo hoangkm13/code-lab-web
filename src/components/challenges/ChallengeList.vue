@@ -79,6 +79,7 @@ import {useRoute} from 'vue-router'
 import challengeApi from "@/api/challenge-api";
 
 let challengeList = ref()
+
 let request = ref({
   page: 1,
   size: 4,
@@ -92,6 +93,11 @@ async function getChallengeList() {
   try {
     const response = await challengeApi.getChallengeByTopicId(route.params.topicId) as any;
     challengeList.value = await response.result.content
+    for (let item of response.result.content) {
+      request.value.challenges.push(item.challenge)
+
+    }
+
 
   } catch (error) {
     console.error(error);
@@ -99,14 +105,11 @@ async function getChallengeList() {
 }
 
 async function filter(fieldValue: any) {
+  let responseList = ref()
   try {
-    for (let item of challengeList.value) {
-      request.value.challenges.push(item.challenge)
-    }
     request.value.fieldValues = await fieldValue
-    console.log(await challengeApi.filter(request.value))
-    return await challengeApi.filter(request.value);
-
+    await challengeApi.filter(request.value,responseList);
+    challengeList.value =  await responseList.value.result.content
   } catch (error) {
     console.error(error);
   }

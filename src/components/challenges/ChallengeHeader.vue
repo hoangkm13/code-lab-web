@@ -17,12 +17,6 @@
           <div class="track-badge-progress">
             <div class="badge-progress">
               <div class="remaining">
-                <div class="point-left-wrap">
-                <span class="point-left">
-                  22 more points
-                </span>
-                  to get your next star!
-                </div>
                 <div>
                   <el-progress :percentage="(topicInfo.userPoints/topicInfo.totalPoints)*100"/>
                 </div>
@@ -30,16 +24,13 @@
                 <span class="current-rank">
                   Rank:
                   <span class="value">
-                    351547
+                    {{userRankingPosition}}
                   </span>
                 </span>
-                  <span class="pipe">
-                  |
-                </span>
-                  <span class="current-points">
+                  <span style="margin-left: 5px" class="current-points">
                   Points:
                   <span class="value">
-                    {{topicInfo.userPoints}}/{{topicInfo.totalPoints}}
+                    {{ topicInfo.userPoints }}/{{ topicInfo.totalPoints }}
                   </span>
                 </span>
                   <a class="scoring-link" data-analytics="BadgeLearnMoreLink" data-attr1="java" target="_blank"
@@ -114,6 +105,7 @@ import {useRoute} from "vue-router";
 import TopicApi from "@/api/topic-api";
 
 let route = useRoute()
+let userRankingPosition = ref(0)
 let topicInfo = ref(
     {
       id: "",
@@ -123,10 +115,26 @@ let topicInfo = ref(
       totalPoints: 0
     }
 )
+let userRankingList = ref()
+
+async function getUserRankingPosition() {
+  let currentUser = await JSON.parse(localStorage.getItem('user') as any)
+  for (let rankingDetail in userRankingList.value) {
+    if (userRankingList.value[rankingDetail].userId == currentUser.user.id) {
+        userRankingPosition.value = Number(rankingDetail) + 1;
+    }
+  }
+
+}
+
 onMounted(async () => {
-  await TopicApi.getUserTopic(route.params.topicId).then(response => {
+  await TopicApi.getUserTopic(route.params.topicId).then((response: any) => {
     topicInfo.value = response.result
-  })
+  });
+  await TopicApi.getUserRanking(route.params.topicId).then((response: any) => {
+    userRankingList.value = response.result
+  });
+  await getUserRankingPosition()
 })
 
 </script>
