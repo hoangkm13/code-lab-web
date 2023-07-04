@@ -3,9 +3,7 @@
     <div class="snipcss0-5-6-35">
       <div class="challenges-list snipcss0-6-35-36">
         <a v-for="item in challengeList" :key="item"
-           class="js-track-click challenge-list-item snipcss0-7-36-37"
-           href="/challenges/welcome-to-java?isFullScreen=true">
-
+           class="js-track-click challenge-list-item snipcss0-7-36-37">
           <div class="single-item challenges-list-view-v2 first-challenge cursor snipcss0-8-37-38">
             <div id="contest-challenges-problem"
                  class="individual-challenge-card-v2 content--list-v2 track_content snipcss0-9-38-39">
@@ -27,7 +25,7 @@
                                 </span>
 
                           <div class="preview-content" style="margin-top: 10px">
-                            {{ item.challenge.issue }}
+
                           </div>
                         </div>
                       </h4>
@@ -46,15 +44,16 @@
                         </span>
                   <div>
                     <div>
+
                       <div>
-                        <el-button color="#f4f4f5" v-if="item.status == 'SOLVED'" style="width: 150px;" size="large"
+                        <el-button @click="navigateToChallenge(item.challenge.id)" color="#f4f4f5" v-if="item.status == 'SOLVED'" style="width: 150px;" size="large"
                                    width="100px" type="success">
                           SOLVED
                           <el-icon>
                             <Check/>
                           </el-icon>
                         </el-button>
-                        <el-button v-else style="width: 150px;" size="large" width="100px" type="success">
+                        <el-button @click="navigateToChallenge(item.challenge.id)" v-else style="width: 150px;" size="large" width="100px" type="success">
                           START CHALLENGE
                         </el-button>
                       </div>
@@ -75,7 +74,7 @@
 </template>
 <script setup lang="ts">
 import {ref, onMounted, defineExpose} from 'vue'
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 import challengeApi from "@/api/challenge-api";
 
 let challengeList = ref()
@@ -88,7 +87,7 @@ let request = ref({
 })
 
 let route = useRoute();
-
+let router = useRouter();
 async function getChallengeList() {
   try {
     const response = await challengeApi.getChallengeByTopicId(route.params.topicId) as any;
@@ -114,7 +113,9 @@ async function filter(fieldValue: any) {
     console.error(error);
   }
 }
-
+async function navigateToChallenge(challengeId:any) {
+  await router.push("/challenge/solve/" +challengeId)
+}
 onMounted(async () => {
   await getChallengeList()
 })

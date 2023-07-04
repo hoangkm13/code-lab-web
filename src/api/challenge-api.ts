@@ -6,5 +6,11 @@ export default {
     },
     async filter(requestDto:any,list:any) {
         await request.post("/challenge/filter",requestDto).then((response) => list.value = response)
+    },
+    async compileChallengeCode(testCaseId:any,sourceCode:any) {
+        await request.post("/challenge/submit-code-json/" + testCaseId,sourceCode)
+    },
+    async getChallengeById(challengeId:any) {
+        return await request.get("/challenge/"+ challengeId)
     }
 }
