@@ -1,6 +1,6 @@
 <template>
   <div class="challenge-compile">
-
+  {{challengeDetail}}
     <code-editor v-model="code"
                  :language_selector="true"
                  :languages="[['cpp', 'C++'],['python', 'Python'],['php', 'PHP']]"
@@ -13,10 +13,11 @@
 
 </template>
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import CodeEditor from "simple-code-editor";
 import ChallengeApi from "@/api/challenge-api";
-
+import {useRoute} from "vue-router";
+let route = useRoute()
 let sourceCode = ref({
   submittedSourceCode:"import java.io.*;\n" +
       "import java.util.*;\n" +
@@ -49,7 +50,11 @@ async function compileCode() {
   await ChallengeApi.compileChallengeCode("4188030f-5aed-48cd-9b4f-701666d5be3e", sourceCode.value)
   console.log(sourceCode.value.submittedSourceCode)
 }
-
+let challengeDetail = ref()
+async function getChallengeById() {
+  await ChallengeApi.getChallengeById(route.params.challengeId).then(response => challengeDetail.value = response)
+}
+onMounted(getChallengeById)
 </script>
 
 
