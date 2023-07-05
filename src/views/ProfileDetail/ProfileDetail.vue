@@ -320,16 +320,18 @@ async function updateProfile() {
 function startEdit() {
     isEdit.value = !isEdit.value;
     if (isEdit.value == false && hasChanged()) {
-        if (window.confirm("Cancel?") == false) {
+        if (window.confirm("Do you want to cancel without saving?") == false) {
             cloneForm.value = { ...cloneForm.value }
+        }else{
+            updateProfile()
         }
     }
 }
 
 function randomColor() {
-    const r = () => Math.floor(256 * Math.random());
+  const r = () => Math.floor(206 + 50 * Math.random()); // Adjust the range for brighter colors
 
-    return `rgb(${r()}, ${r()}, ${r()})`;
+  return `rgb(${r()}, ${r()}, ${r()})`;
 }
 
 
