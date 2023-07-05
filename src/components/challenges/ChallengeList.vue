@@ -96,8 +96,6 @@ async function getChallengeList() {
       request.value.challenges.push(item.challenge)
 
     }
-
-
   } catch (error) {
     console.error(error);
   }

@@ -69,8 +69,7 @@ import {Grid} from "@element-plus/icons-vue";
 }
 .user-action {
   align-self: center;
-  padding: 0 20px;
-
+  margin: 0 15px;
 }
 .user-action:hover {
   cursor: pointer;

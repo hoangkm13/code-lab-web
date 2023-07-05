@@ -1,14 +1,8 @@
-
-<template>
-  <button @click="test">click</button>
+<template>\
   <div class="login-container">
     <div class="login-mid">
       <div class="login-logo">
-        <img
-          class="logo-img"
-          src="https://hrcdn.net/fcore/assets/brand/hr-logo-new-black-green-2f615594d2.svg"
-          alt="HackerRank"
-        />
+        <img class="logo-img" :src="imageSrc" alt="HackerRank" />
       </div>
       <div class="login-title">
         <h2 class="auth-category-title">For Developers</h2>
@@ -21,74 +15,67 @@
           <el-tab-pane label="Sign up" class="login-tab">
             <el-form :model="signUpForm">
               <el-form-item>
-                <el-input
-                autocomplete="on"
-                    v-model="signUpForm.name"
-                  class="input-super-large"
-                  :prefix-icon="User"
-                  placeholder="First & Last name"
-                ></el-input>
+                <el-input autocomplete="on" v-model="signUpForm.userName" class="input-super-large" :prefix-icon="User"
+                  placeholder="Last name"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-input
-                v-model="signUpForm.email"
-                  class="input-super-large"
-                  :prefix-icon="Message"
-                  placeholder="Email"
-                ></el-input>
+                <el-input autocomplete="on" v-model="signUpForm.firstName" class="input-super-large" :prefix-icon="Edit"
+                  placeholder="First name"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-input
-                v-model="signUpForm.password"
-                  class="input-super-large"
-                  :prefix-icon="Lock"
-                  placeholder="Your password"
-                ></el-input>
+                <el-input autocomplete="on" v-model="signUpForm.lastName" class="input-super-large" :prefix-icon="Edit"
+                  placeholder="Last name"></el-input>
               </el-form-item>
+              <el-form-item>
+                <el-input v-model="signUpForm.email" class="input-super-large" :prefix-icon="Message"
+                  placeholder="Email"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-input v-model="signUpForm.birthOfDate" class="input-super-large" :prefix-icon="Calendar" type="date"
+                  placeholder="birthOfDate"></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-input type="password" v-model="signUpForm.password" class="input-super-large"
+                  placeholder="Your password" :prefix-icon="Hide"></el-input>
+              </el-form-item>
+              <div style="display: flex; align-items: center;">
+                <label>Gender:</label>
+                <el-radio-group v-model="signUpForm.gender" style="display: flex; justify-content: space-between;">
+                  <el-radio label="Male" size="large" border>Male</el-radio>
+                  <el-radio label="Female" size="large" border>Female</el-radio>
+                  <el-radio label="Other" size="large" border>Other</el-radio>
+                </el-radio-group>
+              </div>
               <el-form-item>
                 <el-checkbox v-model="signUpForm.checkbox" :label="true" size="large">
-                  I agree to HackerRank's Terms of Service and Privacy Policy.
+                  I agree to Codelab's Terms of Service and Privacy Policy.
                 </el-checkbox>
               </el-form-item>
             </el-form>
 
             <div class="login-button">
-              <el-button size="large" color="#00751f"
-                >Create An Account</el-button
-              >
+              <el-button size="large" color="#00751f" @click="signUp()">Create An Account</el-button>
             </div>
           </el-tab-pane>
           <el-tab-pane label="Log in" class="login-tab">
             <el-form :model="loginForm">
               <el-form-item>
-                <el-input
-                v-model="loginForm.username"
-                  autocomplete="on"
-                  class="input-super-large"
-                  :prefix-icon="User"
-                  placeholder="Your username or email"
-                ></el-input>
+                <el-input v-model="loginForm.username" autocomplete="on" class="input-super-large" :prefix-icon="User"
+                  placeholder="Your username or email"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-input
-                v-model="loginForm.password"
-                  class="input-super-large"
-                  :prefix-icon="Lock"
-                  placeholder="Your password"
-                ></el-input>
+                <el-input v-model="loginForm.password" type="password" class="input-super-large" :prefix-icon="Lock"
+                  placeholder="Your password"></el-input>
               </el-form-item>
             </el-form>
 
             <div class="login-box-checkbox">
-              <el-checkbox
-                v-model="checkBox"
-                label="Renember me"
-                size="large"
-              />
+              <el-checkbox v-model="checkBox" label="Renember me" size="large" />
               <el-button link type="primary">Forgot your password?</el-button>
             </div>
             <div class="login-button">
-              <el-button size="large"  color="#00751f" @click="login">Login</el-button>
+              <el-button size="large" color="#00751f" @click="login">Login</el-button>
             </div>
           </el-tab-pane>
           <div class="social-login">
@@ -96,33 +83,17 @@
               <span class="label-text">or connect with</span>
             </div>
             <div class="login-social">
-              <span class="ui-text" aria-hidden="false"
-                ><img
-                  class="social-btn-icon"
-                  alt="Login with Facebook"
-                  src="https://hrcdn.net/fcore/assets/facebook-colored-af4249157d.svg"
-              /></span>
+              <span class="ui-text" aria-hidden="false"><img class="social-btn-icon" alt="Login with Facebook"
+                  src="https://hrcdn.net/fcore/assets/facebook-colored-af4249157d.svg" /></span>
 
-              <span class="ui-text" aria-hidden="false"
-                ><img
-                  class="social-btn-icon"
-                  alt="Login with Google"
-                  src="https://hrcdn.net/fcore/assets/google-colored-20b8216731.svg"
-              /></span>
+              <span class="ui-text" aria-hidden="false"><img class="social-btn-icon" alt="Login with Google"
+                  src="https://hrcdn.net/fcore/assets/google-colored-20b8216731.svg" /></span>
 
-              <span class="ui-text" aria-hidden="false"
-                ><img
-                  class="social-btn-icon"
-                  alt="Login with LinkedIn"
-                  src="https://hrcdn.net/fcore/assets/linkedin-colored-1db195795c.svg"
-              /></span>
+              <span class="ui-text" aria-hidden="false"><img class="social-btn-icon" alt="Login with LinkedIn"
+                  src="https://hrcdn.net/fcore/assets/linkedin-colored-1db195795c.svg" /></span>
 
-              <span aria-hidden="false"
-                ><img
-                  class="social-btn-icon"
-                  alt="Login with Github"
-                  src="https://hrcdn.net/fcore/assets/github-colored-1db995054b.svg"
-              /></span>
+              <span aria-hidden="false"><img class="social-btn-icon" alt="Login with Github"
+                  src="https://hrcdn.net/fcore/assets/github-colored-1db995054b.svg" /></span>
             </div>
           </div>
         </el-tabs>
@@ -131,77 +102,97 @@
   </div>
 </template>
 <script lang="ts" setup>
-import LoginApi from "@/api/login-api";
-import { User, Message, Lock } from "@element-plus/icons-vue";
+import { User, Message, Lock, DataBoard, Edit, Hide, Calendar } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/user";
 
-import {useRouter} from "vue-router";
-const userStore = useUserStore()
+import { useRouter } from "vue-router";
+const userStore = useUserStore();
 const signUpForm = ref({
-  name: '',
-  email:'',
-  password: '',
-  checkbox: false
-})
+  userName: "",
+  firstName: "",
+  lastName: "",
+  gender: "Male",
+  email: "",
+  password: "",
+  checkbox: false,
+  birthOfDate: ""
+});
 const loginForm = ref({
-  username: '',
-  password: '',
+  username: "",
+  password: "",
+});
+let checkBox = ref(false);
+let router = useRouter();
 
-})
-let checkBox = ref(false)
-let router = useRouter()
+let imageSrc = require('@/assets/logo/codelabweb-logo.png')
+
 async function login() {
   await localStorage.removeItem("token")
   await userStore.signIn(loginForm.value)
   await router.push("/")
 }
-async function test() {
-  localStorage.removeItem("token")
+async function signUp() {
+  console.log(signUpForm.value);
 }
 </script>
 <style scoped>
-:deep(.el-tabs__content){
-    padding: 30px;
+:deep(.el-tabs__content) {
+  padding: 30px;
 }
-:deep(.el-form-item){
-    margin-bottom: 8px
+:deep(.el-form-item) {
+  margin-bottom: 8px;
 }
+
 :deep(.el-icon) {
   width: 2em;
   height: 2em;
 }
+
+:deep(.el-form) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 :deep(.el-icon svg) {
   color: black;
   height: 2em;
   width: 2em;
 }
+
 .auth-category-subtitle {
   font-size: 16px;
 }
+
 :deep(.el-tabs) {
   box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   border: none;
 }
+
 :deep(.el-tabs__item) {
   height: 60px;
   border: none !important;
   font-weight: bold;
   font-size: 18px;
 }
+
 :deep(.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active) {
   color: #0e141e;
 }
+
 :deep(.el-tabs__header) {
   border: none !important;
 }
+
 .auth-category-title {
   color: #39424e;
   font-weight: bold;
   font-size: 26px;
   line-height: 1.4;
 }
+
 .social-login .label-text {
   position: relative;
   z-index: 1;
@@ -209,6 +200,7 @@ async function test() {
   padding: 0 30px;
   background: #fff;
 }
+
 .social-login .social-login-label::before {
   position: absolute;
   top: 50%;
@@ -218,52 +210,63 @@ async function test() {
   border-top: 1px solid #b7c9cc;
   content: "";
 }
+
 .ui-text {
   padding-right: 30px;
   border-right: 1px solid #e7eeef;
 }
+
 .login-social {
   display: flex;
   justify-content: space-around;
 }
+
 .social-btn-icon {
   cursor: pointer;
   width: 44px;
   height: 44px;
 }
+
 .social-login .social-login-label {
   position: relative;
   margin: 30px 0 20px;
   color: #b7c9cc;
   text-align: center;
 }
+
 .social-login .social-btn-wrap {
   display: flex;
 }
+
 .login-box-checkbox {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .login-button {
   display: flex;
   justify-content: flex-end;
 }
-:deep(.login-button > button > span){
-    font-size: 18px;
+:deep(.login-button > button > span) {
+  font-size: 18px;
 }
+
 .login-tab {
   display: flex;
   flex-direction: column;
 }
+
 .input-super-large {
   height: 56px;
 }
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .login-mid {
   margin-top: 40px;
   width: 480px;
@@ -272,16 +275,21 @@ async function test() {
   flex-direction: column;
   gap: 24px;
 }
+
 .login-logo,
 .login-title {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .login-title {
   flex-direction: column;
 }
+
 .logo-img {
-  height: 30px;
+  padding: 5px;
+  border: 5px solid orange;
+  border-radius: 10px;
 }
 </style>
