@@ -18,7 +18,7 @@
             <div class="badge-progress">
               <div class="remaining">
                 <div>
-                  <el-progress :percentage="(topicInfo.userPoints/topicInfo.totalPoints)*100"/>
+                  <el-progress :percentage="round((topicInfo.userPoints/topicInfo.totalPoints)*100)"/>
                 </div>
                 <div class="score-info">
                 <span class="current-rank">
@@ -103,6 +103,7 @@ import {onMounted, ref} from 'vue'
 import {ArrowRight} from "@element-plus/icons-vue";
 import {useRoute} from "vue-router";
 import TopicApi from "@/api/topic-api";
+import {round} from "@popperjs/core/lib/utils/math";
 
 let route = useRoute()
 let userRankingPosition = ref(0)
@@ -129,7 +130,13 @@ async function getUserRankingPosition() {
 
 onMounted(async () => {
   await TopicApi.getUserTopic(route.params.topicId).then((response: any) => {
-    topicInfo.value = response.result
+
+    if(response.result == null) {
+      topicInfo.value.userPoints = 0
+    }
+    else {
+      topicInfo.value = response.result
+    }
   });
   await TopicApi.getUserRanking(route.params.topicId).then((response: any) => {
     userRankingList.value = response.result

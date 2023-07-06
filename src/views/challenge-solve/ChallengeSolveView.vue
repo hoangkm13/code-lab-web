@@ -2,8 +2,7 @@
   <div class="challenge-solve-container">
     <div class="feature-tab">
       <el-tabs type="card" class="demo-tabs">
-        <el-tab-pane label="Problem"
-          ><problem-screen></problem-screen
+        <el-tab-pane label="Problem"><problem-screen></problem-screen
         ></el-tab-pane>
         <el-tab-pane label="Submissions"></el-tab-pane>
         <el-tab-pane label="Leaderboard">Config</el-tab-pane>

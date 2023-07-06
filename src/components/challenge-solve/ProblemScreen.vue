@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside>
+      <el-aside width="35%">
         <problem-information></problem-information>
       </el-aside>
       <el-main>

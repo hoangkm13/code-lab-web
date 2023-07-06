@@ -1,4 +1,4 @@
-<template>\
+<template>
   <div class="login-container">
     <div class="login-mid">
       <div class="login-logo">

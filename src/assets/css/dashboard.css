@@ -1687,3 +1687,6 @@ svg:not(:root) {
 #style-NKnYx.style-NKnYx {
     width:69%;
 }
+a {
+    text-decoration: none !important;
+}
