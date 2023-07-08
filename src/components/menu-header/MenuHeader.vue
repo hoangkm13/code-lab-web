@@ -27,7 +27,7 @@
       />
     </div>
     <el-dropdown trigger="click">
-      <el-icon class=" user-action icon">
+      <el-icon class="user-action icon">
         <Message/>
       </el-icon>
       <template #dropdown>
