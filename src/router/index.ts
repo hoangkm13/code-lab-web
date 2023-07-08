@@ -7,6 +7,7 @@ import ChallengeView from "@/views/challenge/ChallengeView.vue";
 import ChallengeDetailView from "@/views/challenge-detail/ChallengeDetailView.vue";
 import ChallengeSolveView from "@/views/challenge-solve/ChallengeSolveView.vue";
 import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
+import NotificationView from "@/views/NotificationView/NotificationView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
@@ -50,6 +51,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: Page.PROFILE.routerPath,
         component: ProfileDetail,
+        meta: {
+          title: Page.PREPARE.title,
+        },
+      },
+      {
+        path: Page.NOTIFICATION.routerPath,
+        component: NotificationView,
         meta: {
           title: Page.PREPARE.title,
         },
