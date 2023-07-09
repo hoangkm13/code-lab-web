@@ -1,6 +1,6 @@
 <template>
   <div  class="information">
-    <el-scrollbar height="600px" >
+    <el-scrollbar height="700px" >
       <div v-html="challengeDetail.issue"></div>
     </el-scrollbar>
   </div>

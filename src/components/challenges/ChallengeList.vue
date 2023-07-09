@@ -1,5 +1,5 @@
 <template>
-  <section class="list-container left-pane snipcss0-4-5-6">
+  <section v-loading.fullscreen.lock="loading" class="list-container left-pane snipcss0-4-5-6">
     <div class="snipcss0-5-6-35">
       <div class="challenges-list snipcss0-6-35-36">
         <a v-for="item in challengeList" :key="item"
@@ -76,9 +76,9 @@
 import {ref, onMounted, defineExpose} from 'vue'
 import {useRoute,useRouter} from 'vue-router'
 import challengeApi from "@/api/challenge-api";
-
+import { ElLoading } from 'element-plus'
 let challengeList = ref()
-
+const loading = ref(true)
 let request = ref({
   page: 1,
   size: 4,
@@ -90,25 +90,34 @@ let route = useRoute();
 let router = useRouter();
 async function getChallengeList() {
   try {
+    loading.value = true
     const response = await challengeApi.getChallengeByTopicId(route.params.topicId) as any;
     challengeList.value = await response.result.content
     for (let item of response.result.content) {
       request.value.challenges.push(item.challenge)
-
     }
+    loading.value = false
   } catch (error) {
     console.error(error);
+  }
+  finally {
+    loading.value = false
   }
 }
 
 async function filter(fieldValue: any) {
   let responseList = ref()
   try {
+    loading.value = true
     request.value.fieldValues = await fieldValue
     await challengeApi.filter(request.value,responseList);
     challengeList.value =  await responseList.value.result.content
+    loading.value = false;
   } catch (error) {
     console.error(error);
+  }
+  finally {
+    loading.value = false
   }
 }
 async function navigateToChallenge(challengeId:any) {
