@@ -11,7 +11,8 @@
     <el-menu-item index="3" v-on:click="navigateToUrl('/compete')">Compete</el-menu-item>
     <div class="flex-grow" />
     <div class="user-action">
-      <el-input v-model="input" size="large" placeholder="Please Input" :suffix-icon="Search" />
+      <el-input v-model="input" size="large" placeholder="Please Input" :suffix-icon="Search"
+        @keyup.enter="searchChallenge()" />
     </div>
     <el-dropdown trigger="click">
       <el-icon class="user-action icon">
@@ -134,6 +135,11 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 async function navigateToUrl(url: any) {
   await router.push(url)
+}
+
+async function searchChallenge() {
+  console.log(input.value);
+  router.push('/search/challengeName=' + input.value)
 }
 
 </script>

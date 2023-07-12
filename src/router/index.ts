@@ -10,6 +10,7 @@ import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
 import NotificationView from "@/views/NotificationView/NotificationView.vue";
 import BookmarkView from "@/views/BookmarkView/BookmarkView.vue";
 import CertificateView from "@/views/CertificateView/CertificateView.vue";
+import SearchView from "@/views/SearchView/SearchView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
@@ -83,6 +84,12 @@ const routes: Array<RouteRecordRaw> = [
         component: CertificateView,
         meta: {
           title: Page.COMPETE.title,
+        },
+      },{
+        path: Page.SEARCH.routerPath,
+        component: SearchView,
+        meta: {
+          title: Page.SEARCH.title,
         },
       },
     ],
