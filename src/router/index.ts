@@ -8,6 +8,7 @@ import ChallengeDetailView from "@/views/challenge-detail/ChallengeDetailView.vu
 import ChallengeSolveView from "@/views/challenge-solve/ChallengeSolveView.vue";
 import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
 import NotificationView from "@/views/NotificationView/NotificationView.vue";
+import BookmarkView from "@/views/BookmarkView/BookmarkView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
@@ -59,16 +60,23 @@ const routes: Array<RouteRecordRaw> = [
         path: Page.NOTIFICATION.routerPath,
         component: NotificationView,
         meta: {
-          title: Page.PREPARE.title,
+          title: Page.NOTIFICATION.title,
+        },
+      },
+      {
+        path: Page.BOOKMARKED.routerPath,
+        component: BookmarkView,
+        meta: {
+          title: Page.BOOKMARKED.title,
         },
       },
     ],
   },
   {
-    path: Page.LOGIN.routerPath,
+    path: Page.AUTH.routerPath,
     component: LoginView,
     meta: {
-      title: Page.LOGIN.title,
+      title: Page.AUTH.title,
     },
   },
 ];

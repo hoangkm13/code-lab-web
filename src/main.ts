@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import hljs from 'highlight.js'
 import router from './router'
 import store from './store'
+
 const pinia = createPinia()
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
