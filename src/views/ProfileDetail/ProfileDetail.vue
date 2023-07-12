@@ -282,9 +282,11 @@ async function getProfileDetail() {
         selectedGender.value = response.result.gender
         cloneForm.value = { ...profileDetail.value }
 
-        const byteArray = new Uint8Array(JSON.parse(response.result.avatar).map((byte: number) => byte < 0 ? byte + 256 : byte));
-        const blob = new Blob([byteArray], { type: 'image/jpeg' });
-        imageData.value = URL.createObjectURL(blob);
+        if (response.result.avatar != null) {
+            const byteArray = new Uint8Array(JSON.parse(response.result.avatar).map((byte: number) => byte < 0 ? byte + 256 : byte));
+            const blob = new Blob([byteArray], { type: 'image/jpeg' });
+            imageData.value = URL.createObjectURL(blob);
+        }
 
         loading.value = false
     } catch (error) {
@@ -454,4 +456,5 @@ input[type="file"] {
 
 .website-input {
     width: 60%;
-}</style>
+}
+</style>
