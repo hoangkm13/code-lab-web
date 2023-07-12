@@ -17,7 +17,10 @@
           <div class="track-badge-progress">
             <div class="badge-progress">
               <div class="remaining">
-                <div>
+                <div v-if="topicInfo.userPoints == 0 && topicInfo.totalPoints == 0 ">
+                  <el-progress :percentage="0"/>
+                </div>
+                <div v-else>
                   <el-progress :percentage="round((topicInfo.userPoints/topicInfo.totalPoints)*100)"/>
                 </div>
                 <div class="score-info">

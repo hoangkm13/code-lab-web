@@ -8,10 +8,12 @@ import ChallengeDetailView from "@/views/challenge-detail/ChallengeDetailView.vu
 import ChallengeSolveView from "@/views/challenge-solve/ChallengeSolveView.vue";
 import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
 import NotificationView from "@/views/NotificationView/NotificationView.vue";
+import ChatView from "@/views/chat/ChatView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
   {
+
     path: Page.DASHBOARD.routerPath,
     component: HomePage,
     meta: {
@@ -71,6 +73,13 @@ const routes: Array<RouteRecordRaw> = [
       title: Page.LOGIN.title,
     },
   },
+    {
+        path: Page.CHAT.routerPath,
+        component: ChatView,
+        meta: {
+            title: Page.CHAT.title,
+        },
+    }
 ];
 
 const router = createRouter({

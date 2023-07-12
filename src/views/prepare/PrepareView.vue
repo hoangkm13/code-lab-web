@@ -31,7 +31,6 @@
   <div class="community-content snipcss-geHQP">
     <div class="dashboard-v2 container">
       <prepare-progress></prepare-progress>
-      <prepare-certification></prepare-certification>
       <prepare-topic></prepare-topic>
     </div>
   </div>

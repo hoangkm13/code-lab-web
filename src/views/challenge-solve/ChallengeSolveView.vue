@@ -12,7 +12,7 @@
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="Discussions" name="discussion">
-          <challenge-discussion @get-list-comment="getListComment"  :comment-list="commentList"></challenge-discussion>
+          <challenge-discussion @get-list-comment="getListComment"  :comment-list="commentList" :reply-comments="replyCommentList"></challenge-discussion>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -33,12 +33,14 @@ import commentApi from "@/api/comment-api";
 let activeName = ref('problem')
 let subMissionList = ref([])
 let commentList = ref()
+
 let route = useRoute()
 async function getListComment() {
   await commentApi.getAllByChallengeId(route.params.challengeId).then((response: any) => {
     commentList.value = response.result.content
   })
 }
+
 async function tabClick(tab: TabsPaneContext) {
   if (tab.paneName == 'submission') {
     await testcaseApi.getListSubmission(route.params.challengeId).then((response: any) => {
@@ -47,6 +49,7 @@ async function tabClick(tab: TabsPaneContext) {
   }
   if (tab.paneName == 'discussion') {
      await getListComment()
+
   }
 }
 </script>

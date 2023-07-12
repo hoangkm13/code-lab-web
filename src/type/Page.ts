@@ -55,4 +55,11 @@ export default {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
   },
+  CHAT: {
+    title: "Chat",
+    routerPath: "/chat",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  }
 };

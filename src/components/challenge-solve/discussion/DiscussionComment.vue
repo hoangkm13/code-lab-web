@@ -1,4 +1,5 @@
 <template>
+
   <div class="user-comment">
     <div class="close-container" @click="closeContainer">
       <el-icon v-if="!closeComment"><RemoveFilled /></el-icon>
@@ -29,21 +30,21 @@
           <div class="code-background" v-html="comment.code">
           </div>
           <div class="comment-info">
-
             <div class="comment-info-button">
               <el-icon><ArrowDown /></el-icon>
             </div>
             <el-button
-              text
+                v-if="comment.isParent == true"
+                text
               type="primary"
               @click="addCommentContainer(true)"
               >Add Comment</el-button
             >
           </div>
           <div v-if="openAddComment" class="text-editor">
-            <textarea style="width: 100%"></textarea>
+            <textarea v-model="saveCommentRequestDto.text" style="width: 100%"></textarea>
             <div>
-              <el-button @click="addCommentContainer(false)"
+              <el-button @click="replyComment"
                 >Add Comment</el-button
               >
               <el-button @click="addCommentContainer(false)">Close</el-button>
@@ -52,33 +53,54 @@
         </div>
       </div>
     </div>
-    <div >
-      <div v-for="child in comment.children" :key="child">
+    <div>
+      <div v-for="child in replyCommentList" :key="child">
         <discussion-comment :comment="child"></discussion-comment>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { defineProps, ref } from "vue";
-
+<script setup lang="ts" >
+import {defineProps, onMounted, ref} from "vue";
+import commentApi from "@/api/comment-api";
+import {useRoute} from 'vue-router'
 const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
-const isLogin = ref(false);
+let route = useRoute()
 const props = defineProps({
   comment: {
     type: Object,
     default: () => ({}),
-  },
+  }
+
 });
+let saveCommentRequestDto = ref({
+      parentId: props.comment.id,
+      challengeId:route.params.challengeId,
+      text:"",
+})
+
 const closeComment = ref(false);
+const openAddComment = ref(false);
 const closeContainer = () => {
   closeComment.value = !closeComment.value;
 };
-const openAddComment = ref(false);
-const addCommentContainer = (value) => {
+
+const addCommentContainer = (value:any) => {
   openAddComment.value = value;
 };
+let replyCommentList = ref()
+async function getReplyComments() {
+  await commentApi.getListReplyComment(props.comment.id).then((response:any) => {
+    replyCommentList.value = response.result
+  })
+}
+async function replyComment() {
+  await commentApi.replyComment(saveCommentRequestDto.value)
+  await getReplyComments()
+  openAddComment.value = false
+}
+onMounted(getReplyComments)
 </script>
 
 <style scoped>

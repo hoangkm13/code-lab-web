@@ -12,5 +12,9 @@ export default {
     },
     async getAllTopicsWithPoint(){
         return await request.get("/topic/point");
-   }
+   },
+    async getMostPointTopic() {
+        return await request.get("/topic/most-point")
+    }
+
 }

@@ -12,7 +12,9 @@
             <slot></slot>
         </div>
       </el-main>
-      <el-footer class="footer">Show all</el-footer>
+      <el-footer class="footer">
+        <el-button text>Show all</el-button>
+      </el-footer>
     </el-container>
   </div>
 </template>

@@ -6,7 +6,8 @@
       </h2>
     </div>
     <div class="dashboard-section-grid">
-      <div v-for="challenge in challengeObject" :key="challenge" class="skill-progress-card card-box">
+      <div v-for="item in topic" :key="item" class="skill-progress-card card-box">
+
         <div class="base-card">
           <div class="ui-card ui-layer-3 active-card">
             <h2 class="ui-title text-sec-headline-xs">
@@ -14,21 +15,13 @@
             </h2>
             <div class="card-content">
               <h3 class="base-card-title" title="Problem Solving" id="base-card-1">
-                {{challenge.name}}
+                {{item.topic.name}}
               </h3>
               <div class="base-card-detail text-content">
                 <div class="skill-progress-bar">
-                  <div class="ui-progress-bar progress-bar theme-m">
-                    <div class="progress-filler style-vT9Lt" id="style-vT9Lt">
-                    </div>
-                  </div>
+
                   <div class="progress-count text-content">
-                      <span class="percentage">
-                        31%
-                      </span>
-                    <span class="points-left">
-                        (189 points to next star)
-                      </span>
+                      <el-progress :percentage="round(item.userPoints/item.topic.totalPoints)* 100"></el-progress>
                   </div>
                 </div>
               </div>
@@ -64,11 +57,11 @@
                   </path>
                 </g>
                 <image class="badge-icon"
-                       :xlink:href="challenge.challengeLink" x="50%" y="22"
+                       :xlink:href="item.topic.imageUrl" x="50%" y="22"
                        height="27" width="27" transform="translate(-13.5, 0)">
                 </image>
                 <text class="badge-title" x="50%" y="65.5" font-size="10">
-                  {{challenge.name}}
+                  {{item.topic.name}}
                 </text>
                 <g class="star-section" transform="translate(-12.5, 0)">
                   <svg x="50%" y="71" height="10">
@@ -101,8 +94,10 @@
   </section>
 </template>
 <script lang="ts" setup>
-import {ref} from 'vue'
-
+import {ref,onMounted} from 'vue'
+import topicApi from "@/api/topic-api";
+import {round} from "@popperjs/core/lib/utils/math";
+let topic = ref()
 let challengeObject = ref([
       {name: "Problem Solving", challengeLink: "https://hrcdn.net/fcore/assets/badges/problem-solving-ecaf59a612.svg"}, {
         name: "Java",
@@ -110,6 +105,12 @@ let challengeObject = ref([
       }
     ]
 )
+async function getMostPointTopic() {
+  await topicApi.getMostPointTopic().then((response:any) => {
+    topic.value = response.result
+  })
+}
+onMounted(getMostPointTopic)
 </script>
 <style scoped>
 
