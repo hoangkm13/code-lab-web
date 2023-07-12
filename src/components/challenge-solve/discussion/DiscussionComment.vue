@@ -63,7 +63,7 @@
 <script setup>
 import { defineProps, ref } from "vue";
 
-const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
+const defaultAvatar = require("@/assets/logo/default-avatar-1.png");
 const isLogin = ref(false);
 const props = defineProps({
   comment: {

@@ -9,6 +9,7 @@ import ChallengeSolveView from "@/views/challenge-solve/ChallengeSolveView.vue";
 import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
 import NotificationView from "@/views/NotificationView/NotificationView.vue";
 import BookmarkView from "@/views/BookmarkView/BookmarkView.vue";
+import CertificateView from "@/views/CertificateView/CertificateView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
@@ -70,8 +71,21 @@ const routes: Array<RouteRecordRaw> = [
           title: Page.BOOKMARKED.title,
         },
       },
+      {
+        path: Page.CERTIFY.routerPath,
+        component: CertificateView,
+        meta: {
+          title: Page.CERTIFY.title,
+        },
+      },
+      {
+        path: Page.COMPETE.routerPath,
+        component: CertificateView,
+        meta: {
+          title: Page.COMPETE.title,
+        },
+      },
     ],
-
   },
   {
     path: Page.AUTH.routerPath,

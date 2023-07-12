@@ -9,5 +9,8 @@ export default {
   },
   async updateNotification(notificationId: any) {
     return request.put("/notification/" + notificationId);
-  }
+  },
+  async markAsReadAll() {
+    return request.put("/notification");
+  },
 };

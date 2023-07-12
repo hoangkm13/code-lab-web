@@ -17,8 +17,8 @@
           <div class="track-badge-progress">
             <div class="badge-progress">
               <div class="remaining">
-                <div>
-                  <el-progress :percentage="round((topicInfo.userPoints/topicInfo.totalPoints)*100)"/>
+                <div style="width: 200px;">
+                  <el-progress :percentage="round((topicInfo.userPoints ? topicInfo.userPoints/topicInfo.totalPoints : 0)*100)"/>
                 </div>
                 <div class="score-info">
                 <span class="current-rank">

@@ -32,7 +32,7 @@ import {useRoute} from "vue-router";
 import DiscussionComment from "./DiscussionComment.vue";
 import commentApi from "@/api/comment-api";
 let route = useRoute()
-const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
+const defaultAvatar = require("@/assets/logo/default-avatar-1.png");
 let prop = defineProps(['commentList'])
 let emits = defineEmits(['getListComment'])
 let saveCommentRequestDto = ref(
