@@ -76,4 +76,11 @@ export default {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
   },
+  SEARCH: {
+    title: "Search result",
+    routerPath: "/search/challengeName=:challengeName",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
 };
