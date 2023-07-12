@@ -1,4 +1,6 @@
 <template>
+    <section v-loading.fullscreen.lock="loading" class="list-container left-pane">
+
     <div class="container content">
         <div class="bookmarked-container">
             <h1>Bookmarked List:</h1>
@@ -86,6 +88,7 @@
             </div>
         </div>
     </div>
+    </section>
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
@@ -96,12 +99,15 @@ import bookmarkApi from "@/api/bookmark-api";
 let route = useRoute();
 let router = useRouter();
 let challengeList = ref();
+const loading = ref(true)
 
 async function listAllBookmaredChallenge() {
     try {
+        loading.value = true;
         const response = await bookmarkApi.listAllBookmarkedChallenges()
         challengeList.value = Array.from(response.result.content).length > 0 ? response.result.content : null
         console.log(challengeList);
+        loading.value = false;
     }
     catch (error) {
         console.log(error);

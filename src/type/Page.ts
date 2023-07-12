@@ -62,4 +62,18 @@ export default {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
   },
+  CERTIFY: {
+    title: "Certify",
+    routerPath: "/certify",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
+  COMPETE: {
+    title: "Compete",
+    routerPath: "/compete",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
 };
