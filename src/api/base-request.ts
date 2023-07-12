@@ -29,7 +29,6 @@ const Request = (baseURL: any): AxiosInstance => {
         return Promise.reject(error.response);
     });
 
-
     return request;
 }
 const request = Request(API_URL);
