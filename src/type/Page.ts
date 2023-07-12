@@ -6,9 +6,9 @@ export default {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
   },
-  LOGIN: {
-    title: "Login",
-    routerPath: "/login",
+  AUTH: {
+    title: "Auth",
+    routerPath: "/auth",
     get path() {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
@@ -23,6 +23,13 @@ export default {
   NOTIFICATION: {
     title: "Notification",
     routerPath: "/notification",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
+  BOOKMARKED: {
+    title: "Bookmarked",
+    routerPath: "/challenges/bookmarked",
     get path() {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
@@ -51,6 +58,27 @@ export default {
   CHALLENGE_SOLVE: {
     title: "Challenge-solve",
     routerPath: "solve/:challengeId",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
+  CERTIFY: {
+    title: "Certify",
+    routerPath: "/certify",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
+  COMPETE: {
+    title: "Compete",
+    routerPath: "/compete",
+    get path() {
+      return process.env.VUE_APP_BASE_URL + this.routerPath;
+    },
+  },
+  SEARCH: {
+    title: "Search result",
+    routerPath: "/search/challengeName=:challengeName",
     get path() {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },

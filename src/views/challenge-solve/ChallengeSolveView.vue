@@ -28,8 +28,6 @@ import SubmissionHistoryTable from "@/components/submission/SubmissionHistoryTab
 import testcaseApi from "@/api/testcase-api";
 import commentApi from "@/api/comment-api";
 
-
-
 let activeName = ref('problem')
 let subMissionList = ref([])
 let commentList = ref()

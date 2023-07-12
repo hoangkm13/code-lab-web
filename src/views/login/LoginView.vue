@@ -15,7 +15,7 @@
           <el-tab-pane label="Sign up" class="login-tab">
             <el-form :model="signUpForm">
               <el-form-item>
-                <el-input autocomplete="on" v-model="signUpForm.userName" class="input-super-large" :prefix-icon="User"
+                <el-input autocomplete="on" v-model="signUpForm.username" class="input-super-large" :prefix-icon="User"
                   placeholder="Last name"></el-input>
               </el-form-item>
               <el-form-item>
@@ -39,9 +39,9 @@
                 <el-input type="password" v-model="signUpForm.password" class="input-super-large"
                   placeholder="Your password" :prefix-icon="Hide"></el-input>
               </el-form-item>
-              <div style="display: flex; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 20px;">
                 <label>Gender:</label>
-                <el-radio-group v-model="signUpForm.gender" style="display: flex; justify-content: space-between;">
+                <el-radio-group v-model="signUpForm.gender" style="display: flex; ">
                   <el-radio label="Male" size="large" border>Male</el-radio>
                   <el-radio label="Female" size="large" border>Female</el-radio>
                   <el-radio label="Other" size="large" border>Other</el-radio>
@@ -71,7 +71,7 @@
             </el-form>
 
             <div class="login-box-checkbox">
-              <el-checkbox v-model="checkBox" label="Renember me" size="large" />
+              <el-checkbox v-model="termCheckbox" label="Renember me" size="large" />
               <el-button link type="primary">Forgot your password?</el-button>
             </div>
             <div class="login-button">
@@ -102,14 +102,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { User, Message, Lock, DataBoard, Edit, Hide, Calendar } from "@element-plus/icons-vue";
+import { User, Message, Lock, Edit, Hide, Calendar } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { useUserStore } from "@/store/user";
 
+import authApi from "@/api/login-api";
 import { useRouter } from "vue-router";
 const userStore = useUserStore();
 const signUpForm = ref({
-  userName: "",
+  username: "",
   firstName: "",
   lastName: "",
   gender: "Male",
@@ -122,24 +123,42 @@ const loginForm = ref({
   username: "",
   password: "",
 });
-let checkBox = ref(false);
+let termCheckbox = ref(false);
 let router = useRouter();
 
 let imageSrc = require('@/assets/logo/codelabweb-logo.png')
 
 async function login() {
-  await localStorage.removeItem("token")
-  await userStore.signIn(loginForm.value)
-  await router.push("/")
+  console.log(loginForm.value);
+  try {
+    await localStorage.removeItem("token")
+    await userStore.signIn(loginForm.value)
+    await router.push("/prepare")
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 async function signUp() {
-  console.log(signUpForm.value);
+  if (!termCheckbox.value) {
+    try {
+      const response = await authApi.signUp(signUpForm.value)
+      console.log(response);
+
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    alert("To be a Codelab hacker, please check the box indicating that you have read and agree to these terms.")
+  }
+
 }
 </script>
 <style scoped>
 :deep(.el-tabs__content) {
   padding: 30px;
 }
+
 :deep(.el-form-item) {
   margin-bottom: 8px;
 }
@@ -248,6 +267,7 @@ async function signUp() {
   display: flex;
   justify-content: flex-end;
 }
+
 :deep(.login-button > button > span) {
   font-size: 18px;
 }
@@ -291,5 +311,9 @@ async function signUp() {
   padding: 5px;
   border: 5px solid orange;
   border-radius: 10px;
+}
+
+:deep(.el-radio):not(:last-child) {
+  margin-right: 22px;
 }
 </style>

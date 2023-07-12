@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import LoginApi from "@/api/login-api";
-import ProfileDetailApi from "@/api/profile-api";
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null as null | any,

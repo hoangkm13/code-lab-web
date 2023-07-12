@@ -9,11 +9,13 @@ import ChallengeSolveView from "@/views/challenge-solve/ChallengeSolveView.vue";
 import ProfileDetail from "@/views/ProfileDetail/ProfileDetail.vue";
 import NotificationView from "@/views/NotificationView/NotificationView.vue";
 import ChatView from "@/views/chat/ChatView.vue";
+import BookmarkView from "@/views/BookmarkView/BookmarkView.vue";
+import CertificateView from "@/views/CertificateView/CertificateView.vue";
+import SearchView from "@/views/SearchView/SearchView.vue";
 
 const LoginView = () => import("@/views/login/LoginView.vue");
 const routes: Array<RouteRecordRaw> = [
   {
-
     path: Page.DASHBOARD.routerPath,
     component: HomePage,
     meta: {
@@ -61,16 +63,43 @@ const routes: Array<RouteRecordRaw> = [
         path: Page.NOTIFICATION.routerPath,
         component: NotificationView,
         meta: {
-          title: Page.PREPARE.title,
+          title: Page.NOTIFICATION.title,
+        },
+      },
+      {
+        path: Page.BOOKMARKED.routerPath,
+        component: BookmarkView,
+        meta: {
+          title: Page.BOOKMARKED.title,
+        },
+      },
+      {
+        path: Page.CERTIFY.routerPath,
+        component: CertificateView,
+        meta: {
+          title: Page.CERTIFY.title,
+        },
+      },
+      {
+        path: Page.COMPETE.routerPath,
+        component: CertificateView,
+        meta: {
+          title: Page.COMPETE.title,
+        },
+      },{
+        path: Page.SEARCH.routerPath,
+        component: SearchView,
+        meta: {
+          title: Page.SEARCH.title,
         },
       },
     ],
   },
   {
-    path: Page.LOGIN.routerPath,
+    path: Page.AUTH.routerPath,
     component: LoginView,
     meta: {
-      title: Page.LOGIN.title,
+      title: Page.AUTH.title,
     },
   },
     {

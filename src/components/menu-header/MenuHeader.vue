@@ -1,35 +1,22 @@
 <!--suppress TypeScriptValidateTypes -->
 <template>
-  <el-menu
-      :default-active="activeIndex2"
-      class="el-menu-demo"
-      mode="horizontal"
-      background-color="#000000"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      @select="handleSelect"
-      :ellipsis="false"
-  >
+  <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" background-color="#000000"
+    text-color="#fff" active-text-color="#ffd04b" @select="handleSelect" :ellipsis="false">
     <div class="logo">
       <img class="logo-images" :src="imageSrc" alt="Logo">
     </div>
-    <h3 class="dashboard-page">CodeLab</h3>
-    <router-link to="/prepare">
-      <el-menu-item index="1">Prepare</el-menu-item>
-    </router-link>
-
-    <div class="flex-grow"/>
+    <h3 class="dashboard-page" v-on:click="navigateToUrl('/prepare')">CodeLab</h3>
+    <el-menu-item index="1" v-on:click="navigateToUrl('/prepare')">Prepare</el-menu-item>
+    <el-menu-item index="2" v-on:click="navigateToUrl('/certify')">Certify</el-menu-item>
+    <el-menu-item index="3" v-on:click="navigateToUrl('/compete')">Compete</el-menu-item>
+    <div class="flex-grow" />
     <div class="user-action">
-      <el-input
-          v-model="input"
-          size="large"
-          placeholder="Please Input"
-          :suffix-icon="Search"
-      />
+      <el-input v-model="input" size="large" placeholder="Please Input" :suffix-icon="Search"
+        @keyup.enter="searchChallenge()" />
     </div>
     <el-dropdown trigger="click">
       <el-icon class="user-action icon">
-        <Message/>
+        <Message />
       </el-icon>
       <template #dropdown>
         <common-dropdown>
@@ -40,7 +27,7 @@
     </el-dropdown>
     <el-dropdown trigger="click">
       <el-icon class="user-action icon">
-        <Bell/>
+        <Bell />
       </el-icon>
       <template #dropdown>
         <div class="notification-dropdown">
@@ -48,9 +35,9 @@
             <template #title>
               Notifications
             </template>
-            <template #action>
-              <a class="archive-all-style" href="">Archive all</a>
-            </template>
+            <!-- <template #action>
+              <a class="archive-all-style">Archive all</a>
+            </template> -->
             <template #default>You have no unread notifications</template>
           </common-dropdown>
         </div>
@@ -62,7 +49,8 @@
       <div class="user-action icon user-avatar">
         <svg viewBox="0 0 24 24" width="1em" height="1em" class=" ui-svg-icon" fill="currentColor">
           <path
-              d="M21 23c-.6 0-1-.4-1-1v-2.2c0-1.9-1.6-3.4-3.5-3.4h-9c-1.9 0-3.5 1.5-3.5 3.4V22c0 .6-.5 1-1 1s-1-.4-1-1v-2.2c0-3 2.5-5.4 5.5-5.4h9c3 0 5.5 2.4 5.5 5.4V22c0 .6-.5 1-1 1zm-9-11.1c-3 0-5.4-2.4-5.4-5.4S9 1 12 1s5.4 2.4 5.4 5.4-2.4 5.5-5.4 5.5zM12 3c-1.9 0-3.4 1.5-3.4 3.4s1.5 3.4 3.4 3.4 3.4-1.5 3.4-3.4S13.9 3 12 3z"></path>
+            d="M21 23c-.6 0-1-.4-1-1v-2.2c0-1.9-1.6-3.4-3.5-3.4h-9c-1.9 0-3.5 1.5-3.5 3.4V22c0 .6-.5 1-1 1s-1-.4-1-1v-2.2c0-3 2.5-5.4 5.5-5.4h9c3 0 5.5 2.4 5.5 5.4V22c0 .6-.5 1-1 1zm-9-11.1c-3 0-5.4-2.4-5.4-5.4S9 1 12 1s5.4 2.4 5.4 5.4-2.4 5.5-5.4 5.5zM12 3c-1.9 0-3.4 1.5-3.4 3.4s1.5 3.4 3.4 3.4 3.4-1.5 3.4-3.4S13.9 3 12 3z">
+          </path>
         </svg>
       </div>
       <template #dropdown>
@@ -72,10 +60,10 @@
               <el-button class="count-button" type="primary">Hackos: 341</el-button>
             </el-dropdown-item>
             <el-dropdown-item>
-              <div class="profile">
+              <div class="profile" v-on:click="navigateToUrl('/profile')">
                 <div class="title">Profile</div>
                 <div class="profile-process">
-                  <el-progress :width="45" type="circle" :percentage="50" color="rgb(27, 169, 76)"/>
+                  <el-progress :width="45" type="circle" :percentage="50" color="rgb(27, 169, 76)" />
                 </div>
               </div>
             </el-dropdown-item>
@@ -84,10 +72,7 @@
                 <div class="title">Dark Mode</div>
               </div>
               <div class="profile-process">
-                <el-switch
-                    v-model="value"
-                    style="--el-switch-on-color: #13ce66;"
-                />
+                <el-switch v-model="value" style="--el-switch-on-color: #13ce66;" />
               </div>
             </el-dropdown-item>
             <el-dropdown-item divided>
@@ -100,7 +85,7 @@
                 <div class="title">Settings</div>
               </div>
             </el-dropdown-item>
-            <el-dropdown-item divided>
+            <el-dropdown-item divided v-on:click="navigateToUrl('/challenges/bookmarked')">
               <div class="profile">
                 <div class="title">Bookmarks</div>
               </div>
@@ -133,10 +118,11 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import CommonDropdown from "@/components/drop-down/CommonDropdown.vue";
 import FeatureDropdown from "@/components/drop-down/FeatureDropdown.vue";
-import {Bell, Message, Search} from "@element-plus/icons-vue";
+import { Bell, Message, Search } from "@element-plus/icons-vue";
+import router from '@/router';
 
 const activeIndex2 = ref('1')
 let value = ref(true)
@@ -146,6 +132,16 @@ let imageSrc = require('@/assets/logo/logo-black (1).png')
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+
+async function navigateToUrl(url: any) {
+  await router.push(url)
+}
+
+async function searchChallenge() {
+  console.log(input.value);
+  router.push('/search/challengeName=' + input.value)
+}
+
 </script>
 <style scoped>
 :deep(.el-progress__text) {
@@ -159,6 +155,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   margin-right: 5px;
   color: white;
   align-self: center;
+  cursor: pointer;
 }
 
 .icon {
