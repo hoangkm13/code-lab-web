@@ -14,9 +14,10 @@
       <img class="logo-images" :src="imageSrc" alt="Logo">
     </div>
     <h3 class="dashboard-page">CodeLab</h3>
-    <el-menu-item index="1">Prepare</el-menu-item>
-    <el-menu-item index="2">Certify</el-menu-item>
-    <el-menu-item index="3">Compete</el-menu-item>
+    <router-link to="/prepare">
+      <el-menu-item index="1">Prepare</el-menu-item>
+    </router-link>
+
     <div class="flex-grow"/>
     <div class="user-action">
       <el-input
@@ -68,7 +69,7 @@
         <div class="user-dropdown-information">
           <el-dropdown-menu>
             <el-dropdown-item style="display: flex;justify-content: center">
-              <el-button class="count-button"  type="primary">Hackos: 341</el-button>
+              <el-button class="count-button" type="primary">Hackos: 341</el-button>
             </el-dropdown-item>
             <el-dropdown-item>
               <div class="profile">
@@ -148,8 +149,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </script>
 <style scoped>
 :deep(.el-progress__text) {
- font-size: 13px !important;
+  font-size: 13px !important;
 }
+
 .dashboard-page {
   background: #000000;
   font-weight: bold;
@@ -241,7 +243,8 @@ li {
   font-size: 16px;
   font-weight: 800;
 }
-.count-button{
+
+.count-button {
   display: flex !important;
   width: 160px;
   justify-content: center;

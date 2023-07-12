@@ -1,5 +1,36 @@
 <template>
-  <div class="compile-result">
+  <div class="challenge-compile">
+    <el-select @change="changeLanguage" v-model="language" class="m-2" placeholder="Select language" size="large">
+      <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+      />
+    </el-select>
+    <vue-monaco-editor
+        style="height: 500px;max-height: 500px"
+        v-model:value="sourceCode.submittedSourceCode"
+        theme="vs-dark"
+    />
+  </div>
+  <div class="button-container">
+    <el-button @click="compileCode" class="submit-button" type="success">Submit code</el-button>
+  </div>
+  <div v-if="resultAfterCompile.status != '' && resultAfterCompile.status == 'Accepted'" class="code-compile-test-view theme-m-content snipcss-orar4">
+    <div class="compile-error-wrapper">
+      <p class="status compile-success">
+        Congratulations!
+      </p>
+      <p class="compile-advice">
+        You have passed the sample test case.
+      </p>
+    </div>
+  </div>
+  <div v-if="resultAfterCompile.status != '' && resultAfterCompile.status != 'Accepted'">
+    <p class="compile-failed">Wrong Answer :(</p>
+  </div>
+    <div class="compile-result">
     <el-card v-if="resultAfterCompile.status !== ''" class="box-card">
       <div class="common-layout">
         <el-container>
@@ -42,29 +73,9 @@
               </div>
             </div>
           </el-main>
-
         </el-container>
       </div>
     </el-card>
-  </div>
-
-  <div class="challenge-compile">
-    <el-select @change="changeLanguage" v-model="language" class="m-2" placeholder="Select language" size="large">
-      <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-      />
-    </el-select>
-    <vue-monaco-editor
-        style="height: 600px;max-height: 600px"
-        v-model:value="sourceCode.submittedSourceCode"
-        theme="vs-dark"
-    />
-  </div>
-  <div class="button-container">
-    <el-button @click="compileCode" class="submit-button" type="success">Submit code</el-button>
   </div>
 </template>
 <script setup lang="ts">
@@ -93,7 +104,7 @@ let resultAfterCompile = ref({
 let sourceCode = ref({
   submittedSourceCode: ""
 })
-let language = ref('')
+let language = ref('JAVA')
 let preScriptList = ref([])
 let route = useRoute()
 let testCaseTemplate = ref()
@@ -169,6 +180,7 @@ onMounted(async () => {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+  margin-bottom : 20px
 }
 
 .wrong-answer {
@@ -179,5 +191,15 @@ onMounted(async () => {
 .right-answer {
   color: green;
   font-size: 16px
+}
+.compile-success {
+  color: #1ba94c;
+  font-size: 20pt;
+  font-weight: bolder;
+}
+.compile-failed {
+  color: red;
+  font-size: 20pt;
+  font-weight: bolder;
 }
 </style>

@@ -1,55 +1,21 @@
 <template>
   <div class="discussion-container">
     <div class="discussion-content">
-      <div class="comment-header">
-        <div>Sort {{ sortParams.comments }} Dicusstions, By:</div>
-        <div>
-          <el-select
-            v-model="sortParams.orderBy"
-            class="m-2"
-            placeholder="Select"
-          >
-            <el-option
-              v-for="item in sortOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-        <div class="input-sort">
-          <el-input
-            v-model="sortParams.keyword"
-            placeholder="Search comments..."
-          ></el-input>
-        </div>
-      </div>
-      <div class="user-comment" v-if="isLogin">
+      <div class="user-comment" >
         <div class="comment-post">
           <div class="comment-avatar">
             <el-image :src="defaultAvatar"></el-image>
           </div>
           <div class="comment-texteditor">
-            <textarea style="width: 70%;"></textarea>
+            <textarea v-model="saveCommentRequestDto.text" style="width: 70%;"></textarea>
           </div>
         </div>
         <div>
-          <el-button>Post comment</el-button>
-        </div>
-      </div>
-      <div v-else>
-        <div class="request-login-container">
-          <div class="banner">
-            <p>
-              Please<!-- -->
-              <a class="login-link">Login</a>
-              <!-- -->in order to post a comment
-            </p>
-          </div>
+          <el-button @click="saveComment">Post comment</el-button>
         </div>
       </div>
       <div class="comment-container">
-        <div v-for="(comment, index) in comments" :key="index">
+        <div v-for="(comment, index) in commentList" :key="index">
           <DiscussionComment
             :comment="comment"
             style="margin-bottom: 16px"
@@ -57,96 +23,30 @@
         </div>
       </div>
     </div>
-    <div class="discussion-help">
-      <aside class="right-pane challenge-sidebar">
-        <div class="challenge-sidebar-help">
-          <h2 class="text-sec-headline-s">Need Help?</h2>
-          <hr class="hr-line-light" />
-          <div class="mlB">
-            <div class="link-wrapper">
-              <a
-                ><el-icon class="help-icon"><Reading /></el-icon
-                ><span class="ui-icon-label">View editorial</span></a
-              >
-            </div>
-            <div class="link-wrapper">
-              <a
-                ><el-icon class="help-icon"><TrophyBase /></el-icon
-                ><span class="ui-icon-label">View top submissions</span></a
-              >
-            </div>
-          </div>
-        </div>
-      </aside>
-    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import {useRoute} from "vue-router";
 import DiscussionComment from "./DiscussionComment.vue";
-
+import commentApi from "@/api/comment-api";
+let route = useRoute()
 const defaultAvatar = require("@/assets/logo/default-avatar.jpg");
+let prop = defineProps(['commentList'])
+let emits = defineEmits(['getListComment'])
+let saveCommentRequestDto = ref(
+    {
+      challengeId:route.params.challengeId,
+      text:"",
+      code:""
+    }
+)
+async function saveComment() {
+    await commentApi.saveComment(saveCommentRequestDto.value)
+    await emits('getListComment')
+}
 
-const isLogin = ref(true);
-const comments = ref([
-  {
-    name: "A",
-    day: "1 day ago",
-    content:
-      "Test case 7 input array is const a = [4, 97, 5, 97, 97, 4, 97, 4, 97, 97, 97, 97, 4, 4, 5, 5, 97, 5, 97, 99, 4, 97, 5, 97, 97, 97, 5, 5, 97, 4, 5, 97, 97, 5, 97, 4, 97, 5, 4, 4, 97, 5, 5, 5, 4, 97, 97, 4, 97, 5, 4, 4, 97, 97, 97, 5, 5, 97, 4, 97, 97, 5, 4, 97, 97, 4, 97, 97, 97, 5, 4, 4, 97, 4, 4, 97, 5, 97, 97, 97, 97, 4, 97, 5, 97, 5, 4, 97, 4, 5, 97, 97, 5, 97, 5, 97, 5, 97, 97, 97]; there are 24 4s and 25 5s in the input. So the expected return value should be 49. Not 50 as given.",
-    count: 4,
-    children: [
-      {
-        name: "A1",
-        day: "1 day ago",
-        content: "aksljdaslkjdaskl;",
-        children: [
-          {
-            name: "A3",
-            day: "1 day ago",
-            content: "Child 3",
-          },
-        ],
-      },
-      { name: "A2", day: "1 day ago", content: "aslkdjaskljdas" },
-    ],
-  },
-  {
-    name: "B",
-    day: "22/06/2023",
-    content: "int[] arr = new int[100];",
-    count: 1,
-  },
-  {
-    name: "C",
-    day: "1 day ago",
-    content: "fun pickingNumbers(a: Array<Int>): Int ",
-    count: 1,
-  },
-  {
-    name: "D",
-    day: "1 day ago",
-    content:
-      "How come {1 2 2 1 2} will become subarray, it should be multiset right?",
-    count: 1,
-  },
-]);
-const sortParams = ref({
-  comments: 0,
-  orderBy: 0,
-  keyword: "",
-});
-const sortOptions = ref([
-  {
-    value: 0,
-    label: "recency",
-  },
-  {
-    value: 1,
-    label: "votes",
-  },
-]);
 </script>
 
 <style scoped>

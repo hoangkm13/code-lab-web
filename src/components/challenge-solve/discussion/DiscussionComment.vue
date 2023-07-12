@@ -13,32 +13,32 @@
       </div>
       <div class="comment-text">
         <div class="comment-header">
-          <a class="comment-name">{{ comment.name }}</a>
+          <a class="comment-name">{{ comment.username }}</a>
           <div class="comment-icon">
             <el-icon><Clock /></el-icon>
           </div>
-          <div class="comment-day">{{ comment.day }}</div>
+          <div class="comment-day">{{ comment.createdAt }}</div>
           <div class="total-comment" v-if="closeComment">
             {{ comment.count }} comments
           </div>
         </div>
         <div v-if="!closeComment">
           <div>
-            {{ comment.content }}
+            {{ comment.text }}
+          </div>
+          <div class="code-background" v-html="comment.code">
           </div>
           <div class="comment-info">
-            <div>0</div>
+
             <div class="comment-info-button">
               <el-icon><ArrowDown /></el-icon>
             </div>
             <el-button
-              link
+              text
               type="primary"
-              v-if="isLogin"
               @click="addCommentContainer(true)"
               >Add Comment</el-button
             >
-            <el-button link type="primary">Permalink</el-button>
           </div>
           <div v-if="openAddComment" class="text-editor">
             <textarea style="width: 100%"></textarea>
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!closeComment">
+    <div >
       <div v-for="child in comment.children" :key="child">
         <discussion-comment :comment="child"></discussion-comment>
       </div>
@@ -141,5 +141,8 @@ const addCommentContainer = (value) => {
   display: flex;
   flex-direction: column;
   background: #f8f9fb;
+}
+.code-background {
+  background-color: gray;
 }
 </style>
