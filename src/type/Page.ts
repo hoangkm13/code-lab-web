@@ -29,7 +29,7 @@ export default {
   },
   BOOKMARKED: {
     title: "Bookmarked",
-    routerPath: "/bookmarked",
+    routerPath: "/challenges/bookmarked",
     get path() {
       return process.env.VUE_APP_BASE_URL + this.routerPath;
     },
