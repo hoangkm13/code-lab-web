@@ -27,7 +27,7 @@
               </div>
               <a class="ui-btn ui-btn-normal ui-btn-large ui-btn-primary ui-btn-link ui-btn-styled"
                  aria-labelledby="base-card-1 base-card-1-link" id="base-card-1-link"
-                 href="/domains/algorithms?filters%5Bstatus%5D%5B%5D=unsolved&amp;badge_type=problem-solving">
+                 :href="'challenge/topicName=' + item.topic.name + '&topicId=' + item.topic.id +'&img=' + extractImageName(item.topic.imageUrl) ">
                 <div class="ui-content align-icon-right">
                     <span class="ui-text" aria-hidden="false">
                       Continue Preparation
@@ -109,6 +109,16 @@ async function getMostPointTopic() {
   await topicApi.getMostPointTopic().then((response:any) => {
     topic.value = response.result
   })
+}
+function extractImageName(imageUrl:any) {
+  if(imageUrl != null) {
+    const urlParts =  imageUrl.split("/");
+    const fileName =  urlParts[urlParts.length - 1];
+    return fileName
+  }
+  else {
+    return " "
+  }
 }
 onMounted(getMostPointTopic)
 </script>
