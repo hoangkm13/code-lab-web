@@ -140,6 +140,7 @@ async function navigateToUrl(url: any) {
 async function searchChallenge() {
   console.log(input.value);
   router.push('/search/challengeName=' + input.value)
+  input.value = ''
 }
 
 async function logOut() {
