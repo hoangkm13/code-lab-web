@@ -66,31 +66,62 @@
               </a>
             </header>
             <ul class="threads-list-wrap messaging_threads">
-              <p class="gray">
-                You have no messages
-              </p>
+              <li v-for="chat in chatList">
+                <el-button text @click="fetchMessages(chat.chatId,chat.receiver)">{{chat.receiver}}</el-button>
+              </li>
             </ul>
           </div>
-          <div class="layout_content messaging_content">
-            <p class="gray">
-              No Conversation Selected
-            </p>
+          <div>
+            <div v-for="m in messagesa"> {{m.message}} </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="hacker">
+    <div class="message-input" style="display: flex;justify-content: flex-end">
+      <el-input @keyup.enter="saveMessage" style="width: 1000px" v-model="chatObject.message" type="textarea"></el-input>
     </div>
   </div>
 
 </template>
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
 import MenuHeader from "@/components/menu-header/MenuHeader.vue";
-let user=localStorage.getItem('user')
-async function test() {
- await console.log(JSON.parse(user).token)
+import chatApi from "@/api/chat-api";
+import axios from "axios";
+let chatList = ref()
+let chatObject = ref({
+  "chatId": "",
+  "receiver": "",
+  "message" : "",
+  "sender": "" as any
+})
+async function getAllChatByUsername() {
+
+  await chatApi.getAllChatIds().then((response:any) => {
+    chatList.value = response
+  })
 }
+let messagesa = ref([])
+
+async function fetchMessages(chatId:any,receiver:any) {
+  chatObject.value.receiver = receiver
+  chatObject.value.chatId = chatId
+  chatObject.value.sender = localStorage.getItem('username')
+      messagesa.value = []
+  let es = new EventSource('http://localhost:8004/v1/chat/'+chatId);
+  es.addEventListener('message', event => {
+    let data = JSON.parse(event.data);
+    messagesa.value.push(data);
+  }, false);
+
+}
+async function saveMessage() {
+  await chatApi.saveMessage(chatObject.value)
+}
+
+onMounted(async () => {
+  await getAllChatByUsername()
+})
 </script>
 <style scoped>
 @font-face {
@@ -600,9 +631,7 @@ async function test() {
     line-height: inherit;
   }
 
-  .cursor:selection {
-    background: transparent;
-  }
+
 
   .nav-links.theme-m-section .logo-link  {
     display: inline-block;
