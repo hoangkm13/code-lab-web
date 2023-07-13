@@ -282,6 +282,8 @@ async function getProfileDetail() {
         selectedGender.value = response.result.gender
         cloneForm.value = { ...profileDetail.value }
 
+        console.log(response.result.avatar);
+        
         if (response.result.avatar != null) {
             const byteArray = new Uint8Array(JSON.parse(response.result.avatar).map((byte: number) => byte < 0 ? byte + 256 : byte));
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
