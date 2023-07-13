@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {AxiosInstance} from "axios";
 export const API_URL = "http://ec2-34-217-82-119.us-west-2.compute.amazonaws.com:8081/v1";
-
+//export const API_URL = "http://localhost:8004/v1";
 
 const Request = (baseURL: any): AxiosInstance => {
     const timeout = 1000 * 60 * 5;
