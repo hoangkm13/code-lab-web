@@ -124,6 +124,7 @@ async function getChallengeFromSearch() {
             })
         }
         console.log(challengeList.value);
+        return challengeList
         loading.value = false
     } catch (error) {
         console.log(error);
