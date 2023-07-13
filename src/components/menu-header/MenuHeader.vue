@@ -105,7 +105,7 @@
                 <div class="title">Administration</div>
               </div>
             </el-dropdown-item>
-            <el-dropdown-item divided>
+            <el-dropdown-item divided v-on:click="logOut()">
               <div class="profile">
                 <div class="title">Logout</div>
               </div>
@@ -140,6 +140,13 @@ async function navigateToUrl(url: any) {
 async function searchChallenge() {
   console.log(input.value);
   router.push('/search/challengeName=' + input.value)
+}
+
+async function logOut() {
+  await localStorage.removeItem("token")
+  await localStorage.removeItem("user")
+  await router.push('auth')
+
 }
 
 </script>
