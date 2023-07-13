@@ -124,12 +124,13 @@ async function getChallengeFromSearch() {
             })
         }
         console.log(challengeList.value);
-        return challengeList
         loading.value = false
+        return challengeList.value
     } catch (error) {
         console.log(error);
     }
 }
+
 async function changeBookmarked(challengeId: any) {
     try {
         const response = await bookmarkApi.changeBookmarkedChallenge(challengeId)
@@ -157,7 +158,12 @@ async function listAllBookmaredChallenge() {
 }
 onMounted(async () => {
     await listAllBookmaredChallenge()
-    await getChallengeFromSearch();
+    await getChallengeFromSearch()
+
+    watch(route, async (to, from) => {
+        challengeList.value = await getChallengeFromSearch()
+    })
+
 })
 </script>
 <style scoped>
