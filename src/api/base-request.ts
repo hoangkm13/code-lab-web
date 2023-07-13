@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {AxiosInstance} from "axios";
-export const API_URL = "http://ec2-54-202-90-53.us-west-2.compute.amazonaws.com:8081/v1";
+export const API_URL = "http://ec2-34-217-82-119.us-west-2.compute.amazonaws.com:8081/v1";
 
 
 const Request = (baseURL: any): AxiosInstance => {
