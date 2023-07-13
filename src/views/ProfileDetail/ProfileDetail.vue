@@ -26,8 +26,8 @@
                                             style="height: 100%; font-size: 30px;" :name="profileDetail.username" size="l">
                                         </ProfileAvatar>
 
-                                        <img v-if="!imagePreview" :src="imageData"
-                                            class="rounded-circle p-1 profilepic__image" />
+                                        <!-- <img v-if="!imagePreview" :src="imageData"
+                                            class="rounded-circle p-1 profilepic__image" /> -->
                                         <img v-if="imagePreview" :src="imagePreview"
                                             class="rounded-circle p-1 profilepic__image" />
                                         <div class="profilepic__content">
@@ -284,11 +284,11 @@ async function getProfileDetail() {
 
         console.log(response.result.avatar);
         
-        if (response.result.avatar != null) {
-            const byteArray = new Uint8Array(JSON.parse(response.result.avatar).map((byte: number) => byte < 0 ? byte + 256 : byte));
-            const blob = new Blob([byteArray], { type: 'image/jpeg' });
-            imageData.value = URL.createObjectURL(blob);
-        }
+        // if (response.result.avatar != null) {
+        //     const byteArray = new Uint8Array(JSON.parse(response.result.avatar).map((byte: number) => byte < 0 ? byte + 256 : byte));
+        //     const blob = new Blob([byteArray], { type: 'image/jpeg' });
+        //     imageData.value = URL.createObjectURL(blob);
+        // }
 
         loading.value = false
     } catch (error) {
